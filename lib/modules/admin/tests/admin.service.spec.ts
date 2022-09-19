@@ -1,21 +1,21 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { CatServiceMock } from '../tests/mock/CatService.mock';
-import { CatService } from './cat.service';
+import { AdminService } from '../admin.service';
+import { AdminServiceMock } from './mocks/AdminService.mock';
 
-describe('CatService', () => {
-  let service: CatService;
+describe('AdminService', () => {
+  let service: AdminService;
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         {
-          provide: CatService,
-          useClass: CatServiceMock,
+          provide: AdminService,
+          useClass: AdminServiceMock,
         },
       ],
     }).compile();
 
-    service = module.get<CatService>(CatService);
+    service = module.get<AdminService>(AdminService);
   });
 
   it('processObservable', async () => {

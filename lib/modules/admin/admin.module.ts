@@ -2,54 +2,54 @@ import { DynamicModule, Module, Provider } from '@nestjs/common';
 import { randomStringGenerator } from '@nestjs/common/utils/random-string-generator.util';
 
 import {
-  CAT_MODULE_ID,
-  CAT_MODULE_OPTIONS,
-  PROCESS_INSTANCE_TOKEN,
-} from './cat.constants';
+  ADMIN_MODULE_ID,
+  ADMIN_MODULE_OPTIONS,
+  FIREBASE_ADMIN_INSTANCE_TOKEN,
+} from './admin.constants';
 
-import { CatService } from './cat.service';
+import { AdminService } from './admin.service';
 
 import type {
-  CatModuleAsyncOptions,
-  CatModuleOptionsFactory,
+  AdminModuleAsyncOptions,
+  AdminModuleOptionsFactory,
 } from './interfaces';
 
-import type { CatModuleOptions } from './types';
+import type { AdminModuleOptions } from './types';
 
 @Module({
-  providers: [CatService],
-  exports: [CatService],
+  providers: [AdminService],
+  exports: [AdminService],
 })
-export class CatModule {
-  static register(options: CatModuleOptions): DynamicModule {
+export class AdminModule {
+  static register(options: AdminModuleOptions): DynamicModule {
     return {
-      module: CatModule,
+      module: AdminModule,
       providers: [
         {
-          provide: PROCESS_INSTANCE_TOKEN,
+          provide: FIREBASE_ADMIN_INSTANCE_TOKEN,
           useValue: options,
         },
         {
-          provide: CAT_MODULE_ID,
+          provide: ADMIN_MODULE_ID,
           useValue: randomStringGenerator(),
         },
       ],
     };
   }
 
-  static registerAsync(options: CatModuleAsyncOptions): DynamicModule {
+  static registerAsync(options: AdminModuleAsyncOptions): DynamicModule {
     return {
-      module: CatModule,
+      module: AdminModule,
       imports: options.imports,
       providers: [
         ...this.createAsyncProviders(options),
         {
-          provide: PROCESS_INSTANCE_TOKEN,
-          useFactory: (options: CatModuleOptions) => options,
-          inject: [CAT_MODULE_OPTIONS],
+          provide: FIREBASE_ADMIN_INSTANCE_TOKEN,
+          useFactory: (options: AdminModuleOptions) => options,
+          inject: [ADMIN_MODULE_OPTIONS],
         },
         {
-          provide: CAT_MODULE_ID,
+          provide: ADMIN_MODULE_ID,
           useValue: randomStringGenerator(),
         },
         ...(options.extraProviders || []),
@@ -58,7 +58,7 @@ export class CatModule {
   }
 
   private static createAsyncProviders(
-    options: CatModuleAsyncOptions,
+    options: AdminModuleAsyncOptions,
   ): Provider[] {
     if (options.useExisting || options.useFactory) {
       return [this.createAsyncOptionsProvider(options)];
@@ -73,19 +73,19 @@ export class CatModule {
   }
 
   private static createAsyncOptionsProvider(
-    options: CatModuleAsyncOptions,
+    options: AdminModuleAsyncOptions,
   ): Provider {
     if (options.useFactory) {
       return {
-        provide: CAT_MODULE_OPTIONS,
+        provide: ADMIN_MODULE_OPTIONS,
         useFactory: options.useFactory,
         inject: options.inject || [],
       };
     }
     return {
-      provide: CAT_MODULE_OPTIONS,
-      useFactory: async (optionsFactory: CatModuleOptionsFactory) =>
-        optionsFactory.createCatOptions(),
+      provide: ADMIN_MODULE_OPTIONS,
+      useFactory: async (optionsFactory: AdminModuleOptionsFactory) =>
+        optionsFactory.createAdminOptions(),
       inject: [options.useExisting || options.useClass],
     };
   }

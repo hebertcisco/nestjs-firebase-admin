@@ -39,13 +39,13 @@ pnpm add nestjs-firebase-admin --save
 import { Module } from '@nestjs/common';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CatModule } from 'nestjs-firebase-admin';
+import { AdminModule } from 'nestjs-firebase-admin';
 
 import { CommonService } from './common.service';
 
 @Module({
   imports: [
-    CatModule.register({
+    AdminModule.register({
       message: 'Hello World',
     }),
   ],
