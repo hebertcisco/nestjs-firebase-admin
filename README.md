@@ -46,7 +46,12 @@ import { CommonService } from './common.service';
 @Module({
   imports: [
     AdminModule.register({
-      message: 'Hello World',
+     credential: {
+        projectId: 'my-project-id',
+        clientEmail: 'my-client-email',
+        privateKey: 'my-private-key',
+      },
+      databaseURL: 'https://my-project-id.firebaseio.com',
     }),
   ],
   providers: [CommonService],
