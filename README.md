@@ -1,4 +1,4 @@
-[![codecov](https://codecov.io/gh/hebertcisco/nestjs-firebase-admin/branch/master/graph/badge.svg?token=37AZT89NP3)](https://codecov.io/gh/hebertcisco/nestjs-firebase-admin)
+[![codecov](https://codecov.io/gh/hebertcisco/nestjs-firebase-admin/branch/master/graph/badge.svg?token=N0IW1UNNIP)](https://codecov.io/gh/hebertcisco/nestjs-firebase-admin)
 
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/hebertcisco/nestjs-firebase-admin/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/hebertcisco/nestjs-firebase-admin/tree/master)
 
@@ -11,7 +11,7 @@
 [![Free. Built on open source. Runs everywhere.](https://img.shields.io/badge/VS_Code-0078D4?style=flat&logo=visual%20studio%20code&logoColor=white)](https://code.visualstudio.com/)
 [![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=flat&logo=githubactions&logoColor=white)](https://github.com/hebertcisco/nestjs-firebase-admin/actions)
 
-> This is an Nestjs boilerplate package..
+> Firebase Admin SDK for Nestjs :fire:
 
 ## Installation
 
@@ -32,7 +32,7 @@ npm i nestjs-firebase-admin --save
 pnpm add nestjs-firebase-admin --save
 ```
 
-### Usage example:
+### Usage example
 
 ```ts
 // common.module.ts
