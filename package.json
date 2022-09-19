@@ -1,7 +1,7 @@
 {
   "name": "nestjs-firebase-admin",
   "version": "0.0.1",
-  "description": "",
+  "description": "Firebase Admin SDK for Nestjs",
   "author": "Hebert Cisco",
   "license": "MIT",
   "url": "https://github.com/hebertcisco/nestjs-firebase-admin#readme",
@@ -23,7 +23,8 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"
   },
   "dependencies": {
-    "axios": "0.27.2"
+    "axios": "0.27.2",
+    "firebase-admin": "^11.0.1"
   },
   "devDependencies": {
     "@commitlint/cli": "17.0.3",
