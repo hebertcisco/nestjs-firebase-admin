@@ -18,9 +18,22 @@ describe('AdminService', () => {
     service = module.get<AdminService>(AdminService);
   });
 
-  it('processObservable', async () => {
-    service.processObservable().subscribe(processTest => {
-      expect(processTest.platform).toBe(process.platform);
-    });
+  it('should be defined', () => {
+    expect(service).toBeDefined();
+  });
+  it('should return an array of apps', () => {
+    expect(service.getApps).toBeInstanceOf(Array);
+  });
+  it('should return an app', () => {
+    expect(service.getApp).toBeInstanceOf(Object);
+  });
+  it('should return an app reference', () => {
+    expect(service.appRef).toBeInstanceOf(Object);
+  });
+  it('should return an observable of an app', () => {
+    expect(service.initializeAppObservable()).toBeInstanceOf(Object);
+  });
+  it('should return a credential', () => {
+    expect(service.applicationDefault()).toBeNull();
   });
 });

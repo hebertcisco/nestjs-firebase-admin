@@ -8,7 +8,9 @@ import {
   deleteApp,
   applicationDefault,
 } from 'firebase-admin/app';
+
 import type { App } from 'firebase-admin/app';
+import type { Agent } from 'node:http';
 
 import { FIREBASE_ADMIN_INSTANCE_TOKEN } from './admin.constants';
 import type { AdminModuleOptions } from './types';
@@ -17,17 +19,17 @@ export class AdminService {
   public constructor(
     @Inject(FIREBASE_ADMIN_INSTANCE_TOKEN)
     protected readonly options: AdminModuleOptions,
-  ) {}
-  public applicationDefault() {
-    return applicationDefault();
+  ) { }
+  public applicationDefault(httpAgent?: Agent) {
+    return applicationDefault(httpAgent);
   }
-  public deleteApp(app: App) {
+  public deleteApp(app: App): Promise<void> {
     return deleteApp(app);
   }
-  public get getApps() {
+  public get getApps(): App[] {
     return getApps();
   }
-  public get getApp() {
+  public get getApp(): App {
     return getApp();
   }
 

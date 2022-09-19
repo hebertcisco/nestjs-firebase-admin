@@ -1,25 +1,51 @@
-import { Subscription, Observable } from 'rxjs';
-import { AdminConfig } from '../../../../index';
+import { App } from "firebase-admin/app";
+import { Observable } from "rxjs";
+import type { AppOptions, Credential } from "firebase-admin/app";
+
+import { Agent } from 'node:http';
 
 export class AdminServiceMock {
-  consoleObservable(options: AdminConfig): Subscription {
-    return this.processObservable().subscribe(subscriber => {
-      const content = JSON.stringify({ ...options });
-      subscriber.stdout.write(content);
-    });
+  private name: string = "mock";
+  private options: AppOptions = {
+    credential: null,
+    databaseURL: 'https://mock.firebaseio.com',
+    storageBucket: 'mock.appspot.com',
+    projectId: 'mock',
+    httpAgent: new Agent(),
+  } as AppOptions;
+
+  public applicationDefault(): Credential {
+    return this.options.credential;
   }
-  processObservable<T = any>(): Observable<NodeJS.Process> {
-    return new Observable<NodeJS.Process>(subscriber => {
-      subscriber.next(this.processRef);
+  public deleteApp(app: App): Promise<void> {
+    return void app;
+  }
+  public get getApps(): App[] {
+    return [this.initializeApp()];
+  }
+  public get getApp(): App {
+    return this.initializeApp();
+  }
+  public initializeApp(): App {
+    return {
+      name: this.name,
+      options: this.options,
+    }
+  }
+  public initializeAppObservable<T = App>(): Observable<App> {
+    return new Observable<App>(subscriber => {
+      subscriber.next(this.appRef);
       subscriber.complete();
       return () => {
-        if (this.processRef.platform === 'win32') {
-          return;
+        if (this.appRef.name) {
+          return this.appRef;
         }
+        return this.getApp;
       };
     });
   }
-  get processRef() {
-    return process;
+  public get appRef(): App {
+    return this.initializeApp();
   }
+
 }
