@@ -1,10 +1,10 @@
 {
-  "name": "nestjs-lib-boilerplate",
+  "name": "nestjs-firebase-admin",
   "version": "0.0.1",
   "description": "",
   "author": "Hebert Cisco",
   "license": "MIT",
-  "url": "https://github.com/hebertcisco/nestjs-lib-boilerplate#readme",
+  "url": "https://github.com/hebertcisco/nestjs-firebase-admin#readme",
   "scripts": {
     "build": "rimraf -rf dist && tsc -p tsconfig.json",
     "format": "prettier --write \"{lib,test}/**/*.ts\"",
@@ -68,7 +68,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hebertcisco/nestjs-lib-boilerplate"
+    "url": "https://github.com/hebertcisco/nestjs-firebase-admin"
   },
   "jest": {
     "moduleFileExtensions": [

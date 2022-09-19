@@ -1,15 +1,15 @@
-[![codecov](https://codecov.io/gh/hebertcisco/nestjs-lib-boilerplate/branch/master/graph/badge.svg?token=37AZT89NP3)](https://codecov.io/gh/hebertcisco/nestjs-lib-boilerplate)
+[![codecov](https://codecov.io/gh/hebertcisco/nestjs-firebase-admin/branch/master/graph/badge.svg?token=37AZT89NP3)](https://codecov.io/gh/hebertcisco/nestjs-firebase-admin)
 
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/hebertcisco/nestjs-lib-boilerplate/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/hebertcisco/nestjs-lib-boilerplate/tree/master)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/hebertcisco/nestjs-firebase-admin/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/hebertcisco/nestjs-firebase-admin/tree/master)
 
-[![Node.js build and publish package](https://github.com/hebertcisco/nestjs-lib-boilerplate/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/hebertcisco/nestjs-lib-boilerplate/actions/workflows/npm-publish.yml)
+[![Node.js build and publish package](https://github.com/hebertcisco/nestjs-firebase-admin/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/hebertcisco/nestjs-firebase-admin/actions/workflows/npm-publish.yml)
 
-[![Running Code Coverage](https://github.com/hebertcisco/nestjs-lib-boilerplate/actions/workflows/coverage.yml/badge.svg)](https://github.com/hebertcisco/nestjs-lib-boilerplate/actions/workflows/coverage.yml)
+[![Running Code Coverage](https://github.com/hebertcisco/nestjs-firebase-admin/actions/workflows/coverage.yml/badge.svg)](https://github.com/hebertcisco/nestjs-firebase-admin/actions/workflows/coverage.yml)
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Nestjs](https://img.shields.io/badge/Nestjs-ea2845?style=flat&logo=nestjs&logoColor=white)](https://nestjs.com/)
 [![Free. Built on open source. Runs everywhere.](https://img.shields.io/badge/VS_Code-0078D4?style=flat&logo=visual%20studio%20code&logoColor=white)](https://code.visualstudio.com/)
-[![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=flat&logo=githubactions&logoColor=white)](https://github.com/hebertcisco/nestjs-lib-boilerplate/actions)
+[![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=flat&logo=githubactions&logoColor=white)](https://github.com/hebertcisco/nestjs-firebase-admin/actions)
 
 > This is an Nestjs boilerplate package..
 
@@ -19,17 +19,17 @@
 
 ```bash
 # yarn
-yarn add nestjs-lib-boilerplate
+yarn add nestjs-firebase-admin
 ```
 
 ```bash
 # npm
-npm i nestjs-lib-boilerplate --save
+npm i nestjs-firebase-admin --save
 ```
 
 ```bash
 # pnpm
-pnpm add nestjs-lib-boilerplate --save
+pnpm add nestjs-firebase-admin --save
 ```
 
 ### Usage example:
@@ -39,7 +39,7 @@ pnpm add nestjs-lib-boilerplate --save
 import { Module } from '@nestjs/common';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CatModule } from 'nestjs-lib-boilerplate';
+import { CatModule } from 'nestjs-firebase-admin';
 
 import { CommonService } from './common.service';
 
