@@ -1,11 +1,11 @@
-import { Observable } from "rxjs";
-import type { App } from "firebase-admin/app";
-import type { AppOptions, Credential } from "firebase-admin/app";
+import { Observable } from 'rxjs';
+import type { App } from 'firebase-admin/app';
+import type { AppOptions, Credential } from 'firebase-admin/app';
 
 import { Agent } from 'node:http';
 
 export class AdminServiceMock {
-  private name: string = "mock";
+  private name: string = 'mock';
   private options: AppOptions = {
     credential: null,
     databaseURL: 'https://mock.firebaseio.com',
@@ -30,7 +30,7 @@ export class AdminServiceMock {
     return {
       name: this.name,
       options: this.options,
-    }
+    };
   }
   public initializeAppObservable<T = App>(): Observable<App> {
     return new Observable<App>(subscriber => {
@@ -47,5 +47,4 @@ export class AdminServiceMock {
   public get appRef(): App {
     return this.initializeApp();
   }
-
 }

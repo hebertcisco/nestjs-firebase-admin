@@ -2,13 +2,12 @@ import { Inject } from '@nestjs/common';
 
 import { Observable } from 'rxjs';
 import {
-  initializeApp,
   getApp,
   getApps,
   deleteApp,
   applicationDefault,
 } from 'firebase-admin/app';
-import admin from 'firebase-admin';
+import Admin from 'firebase-admin';
 
 import type { App } from 'firebase-admin/app';
 import type { Agent } from 'node:http';
@@ -20,7 +19,9 @@ export class AdminService {
   public constructor(
     @Inject(FIREBASE_ADMIN_INSTANCE_TOKEN)
     protected readonly options: AdminModuleOptions,
-  ) { }
+  ) {
+    this.initializeApp();
+  }
   public applicationDefault(httpAgent?: Agent) {
     return applicationDefault(httpAgent);
   }
@@ -33,12 +34,8 @@ export class AdminService {
   public get getApp(): App {
     return getApp();
   }
-
-  public initializeApp(): App {
-    return initializeApp({
-      ...this.options,
-      credential: admin.credential.cert(this.options.credential),
-    });
+  public admin(): typeof Admin {
+    return Admin;
   }
   public initializeAppObservable<T = App>(): Observable<App> {
     return new Observable<App>(subscriber => {
@@ -55,5 +52,11 @@ export class AdminService {
 
   public get appRef(): App {
     return this.initializeApp();
+  }
+  private initializeApp(): App {
+    return Admin.initializeApp({
+      ...this.options,
+      credential: Admin.credential.cert(this.options.credential),
+    });
   }
 }
