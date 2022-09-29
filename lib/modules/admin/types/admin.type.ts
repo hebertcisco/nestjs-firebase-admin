@@ -1,8 +1,8 @@
 import type { Agent } from 'node:http';
-import type { Credential } from 'firebase-admin/app';
+import type { ServiceAccount } from 'firebase-admin/app';
 
 export type AdminConfig = {
-  credential: Credential;
+  credential: ServiceAccount;
   databaseURL?: string;
   databaseAuthVariableOverride?: object | null;
   serviceAccountId?: string;
