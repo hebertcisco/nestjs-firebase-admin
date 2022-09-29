@@ -1,4 +1,4 @@
-import { Inject } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 
 import { Observable } from 'rxjs';
 import {
@@ -15,13 +15,12 @@ import type { Agent } from 'node:http';
 import { FIREBASE_ADMIN_INSTANCE_TOKEN } from './admin.constants';
 import type { AdminModuleOptions } from './types';
 
+@Injectable()
 export class AdminService {
   public constructor(
     @Inject(FIREBASE_ADMIN_INSTANCE_TOKEN)
     protected readonly options: AdminModuleOptions,
-  ) {
-    this.initializeApp();
-  }
+  ) { }
   public applicationDefault(httpAgent?: Agent) {
     return applicationDefault(httpAgent);
   }
@@ -53,10 +52,37 @@ export class AdminService {
   public get appRef(): App {
     return this.initializeApp();
   }
-  private initializeApp(): App {
+  public initializeApp(): App {
+    let options: AdminModuleOptions = {} as AdminModuleOptions;
+    if ('credential' in this.options) {
+      options.credential = this.options.credential;
+    }
+    if ('databaseAuthVariableOverride' in this.options) {
+      options.databaseAuthVariableOverride = this.options.databaseAuthVariableOverride;
+    }
+    if ('databaseURL' in this.options) {
+      options.databaseURL = this.options.databaseURL;
+    }
+    if ('httpAgent' in this.options) {
+      options.httpAgent = this.options.httpAgent;
+    }
+    if ('projectId' in this.options) {
+      options.projectId = this.options.projectId;
+    }
+    if ('serviceAccountId' in this.options) {
+      options.serviceAccountId = this.options.serviceAccountId;
+    }
+    if ('storageBucket' in this.options) {
+      options.storageBucket = this.options.storageBucket;
+    }
+    if (options) {
+      return Admin.initializeApp({
+        ...options,
+        credential: Admin.credential.cert(this.options.credential)
+      });
+    }
     return Admin.initializeApp({
-      ...this.options,
-      credential: Admin.credential.cert(this.options.credential),
+      credential: Admin.credential.cert(this.options.credential)
     });
   }
 }
