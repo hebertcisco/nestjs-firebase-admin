@@ -21,7 +21,12 @@ export class AdminService {
   public constructor(
     @Inject(FIREBASE_ADMIN_INSTANCE_TOKEN)
     protected readonly options: AdminModuleOptions,
-  ) { }
+  ) {
+    Admin.initializeApp({
+      ...this.options,
+      credential: Admin.credential.cert(this.options.credential)
+    });
+  }
   public applicationDefault(httpAgent?: Agent) {
     return applicationDefault(httpAgent);
   }
@@ -35,10 +40,6 @@ export class AdminService {
     return getApp();
   }
   public admin() {
-    Admin.initializeApp({
-      ...this.options,
-      credential: Admin.credential.cert(this.options.credential)
-    });
     return Admin;
   }
   public initializeAppObservable<T = App>(): Observable<App> {
