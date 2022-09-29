@@ -5,6 +5,10 @@
   "author": "Hebert Cisco",
   "license": "MIT",
   "url": "https://github.com/hebertcisco/nestjs-firebase-admin#readme",
+  "engines": {
+    "node": ">=16.17.1",
+    "npm": ">=8.15.0"
+  },
   "scripts": {
     "build": "rimraf -rf dist && tsc -p tsconfig.json",
     "format": "prettier --write \"{lib,test}/**/*.ts\"",
