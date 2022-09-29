@@ -1,5 +1,5 @@
-import { App } from "firebase-admin/app";
 import { Observable } from "rxjs";
+import type { App } from "firebase-admin/app";
 import type { AppOptions, Credential } from "firebase-admin/app";
 
 import { Agent } from 'node:http';
