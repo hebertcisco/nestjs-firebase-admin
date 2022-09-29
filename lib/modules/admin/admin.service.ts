@@ -7,6 +7,7 @@ import {
   deleteApp,
   applicationDefault,
 } from 'firebase-admin/app';
+
 import Admin from 'firebase-admin';
 
 import type { App } from 'firebase-admin/app';
@@ -33,7 +34,11 @@ export class AdminService {
   public get getApp(): App {
     return getApp();
   }
-  public admin(): typeof Admin {
+  public admin() {
+    Admin.initializeApp({
+      ...this.options,
+      credential: Admin.credential.cert(this.options.credential)
+    });
     return Admin;
   }
   public initializeAppObservable<T = App>(): Observable<App> {
@@ -80,7 +85,7 @@ export class AdminService {
         credential: Admin.credential.cert(this.options.credential)
       });
     }
-    return Admin.initializeApp({
+    return this.admin().initializeApp({
       ...options,
       credential: Admin.credential.cert(this.options.credential)
     });
