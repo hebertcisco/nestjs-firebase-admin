@@ -53,7 +53,7 @@ export class AdminService {
     return this.initializeApp();
   }
   public initializeApp(): App {
-    let options: AdminModuleOptions = {} as AdminModuleOptions;
+    let options: AdminModuleOptions = undefined;
     if ('credential' in this.options) {
       options.credential = this.options.credential;
     }
@@ -75,14 +75,15 @@ export class AdminService {
     if ('storageBucket' in this.options) {
       options.storageBucket = this.options.storageBucket;
     }
-    if (options) {
+    if (!options && this.options.credential) {
       return Admin.initializeApp({
-        ...options,
         credential: Admin.credential.cert(this.options.credential)
       });
     }
     return Admin.initializeApp({
+      ...options,
       credential: Admin.credential.cert(this.options.credential)
     });
+
   }
 }
