@@ -16,3 +16,7 @@ renovate.json
 .circleci
 
 examples
+tests
+*tests*
+
+*mock.ts
