@@ -1,6 +1,6 @@
 {
   "name": "nestjs-firebase-admin",
-  "version": "0.0.72",
+  "version": "0.0.73",
   "description": "Firebase Admin SDK for Nestjs",
   "author": "Hebert Cisco",
   "license": "MIT",
