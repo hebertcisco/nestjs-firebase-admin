@@ -27,7 +27,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"
   },
   "dependencies": {
-    "firebase-admin": "11.4.0"
+    "firebase-admin": "11.4.1"
   },
   "devDependencies": {
     "@commitlint/cli": "17.3.0",
