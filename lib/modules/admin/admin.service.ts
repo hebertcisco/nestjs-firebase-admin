@@ -24,7 +24,7 @@ export class AdminService {
   ) {
     Admin.initializeApp({
       ...this.options,
-      credential: Admin.credential.cert(this.options.credential)
+      credential: Admin.credential.cert(this.options.credential),
     });
   }
   public applicationDefault(httpAgent?: Agent) {
@@ -64,7 +64,8 @@ export class AdminService {
       options.credential = this.options.credential;
     }
     if ('databaseAuthVariableOverride' in this.options) {
-      options.databaseAuthVariableOverride = this.options.databaseAuthVariableOverride;
+      options.databaseAuthVariableOverride =
+        this.options.databaseAuthVariableOverride;
     }
     if ('databaseURL' in this.options) {
       options.databaseURL = this.options.databaseURL;
@@ -83,13 +84,12 @@ export class AdminService {
     }
     if (!options && this.options.credential) {
       return Admin.initializeApp({
-        credential: Admin.credential.cert(this.options.credential)
+        credential: Admin.credential.cert(this.options.credential),
       });
     }
     return this.admin().initializeApp({
       ...options,
-      credential: Admin.credential.cert(this.options.credential)
+      credential: Admin.credential.cert(this.options.credential),
     });
-
   }
 }
