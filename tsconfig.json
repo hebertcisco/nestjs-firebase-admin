@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "forceConsistentCasingInFileNames": false,
+    "strict": true,
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,
@@ -10,15 +12,7 @@
     "target": "es6",
     "sourceMap": false,
     "outDir": "./dist",
-    "rootDir": "./lib",
-    "skipLibCheck": true
-  },
-  "include": ["lib/**/*"],
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts",
-    "tests",
-    "**/*.test.ts",
-    "**/*.mock.ts"
-  ]
+    "skipLibCheck": true,
+    "baseUrl": "./"
+  }
 }
