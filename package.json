@@ -1,6 +1,6 @@
 {
   "name": "nestjs-firebase-admin",
-  "version": "0.0.74",
+  "version": "0.0.75",
   "description": "Firebase Admin SDK for Nestjs",
   "author": "Hebert Cisco",
   "license": "MIT",
@@ -30,7 +30,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
-    "version": "npm run format && git add -A src",
+    "version": "npm run format && git add -A lib",
     "postversion": "git push && git push --tags"
   },
   "dependencies": {

@@ -59,7 +59,6 @@ export class AdminService {
     return this.initializeApp();
   }
   public initializeApp(): App {
-
     return this.admin().initializeApp({
       ...this.options,
       credential: Admin.credential.cert(this.options.credential),

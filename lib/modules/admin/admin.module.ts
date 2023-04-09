@@ -1,4 +1,4 @@
-import {DynamicModule, Module, Provider, Type} from '@nestjs/common';
+import { DynamicModule, Module, Provider, Type } from '@nestjs/common';
 import { randomStringGenerator } from '@nestjs/common/utils/random-string-generator.util';
 
 import {
@@ -57,19 +57,16 @@ export class AdminModule {
     };
   }
 
-  private static createAsyncProviders(
-    options: AdminModuleAsyncOptions,
-  )  {
+  private static createAsyncProviders(options: AdminModuleAsyncOptions) {
     if (options.useExisting || options.useFactory) {
       return [this.createAsyncOptionsProvider(options)];
     }
     return [
       this.createAsyncOptionsProvider(options),
-        {
-            provide: options.useClass,
-            useClass: options.useClass,
-
-        }
+      {
+        provide: options.useClass,
+        useClass: options.useClass,
+      },
     ];
   }
 
@@ -88,8 +85,9 @@ export class AdminModule {
       useFactory: async (optionsFactory: AdminModuleOptionsFactory) =>
         optionsFactory.createAdminOptions(),
       inject: [
-        (options.useExisting || options.useClass) as Type<AdminModuleOptionsFactory>,
-      ]
+        (options.useExisting ||
+          options.useClass) as Type<AdminModuleOptionsFactory>,
+      ],
     };
   }
 }
