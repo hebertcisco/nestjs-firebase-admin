@@ -12,13 +12,14 @@ export class AdminServiceMock {
     storageBucket: 'mock.appspot.com',
     projectId: 'mock',
     httpAgent: new Agent(),
-  } as AppOptions;
+  } as unknown as AppOptions;
 
   public applicationDefault(): Credential {
-    return this.options.credential;
+    return this.options.credential as Credential;
   }
   public deleteApp(app: App): Promise<void> {
-    return void app;
+    test(app.name);
+    return Promise.resolve();
   }
   public get getApps(): App[] {
     return [this.initializeApp()];
