@@ -20,14 +20,14 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@nestjs/common": "^9.1.2",
+    "@nestjs/common": "^7.0.0 || ^8.0.0 || ^9.0.0",
     "@nestjs/core": "^9.1.2",
     "@nestjs/platform-express": "^9.1.2",
-    "nest-shared": "^0.4.53",
+    "nest-shared": "^5.0.1",
     "nestjs-firebase-admin": "0.0.74",
-    "reflect-metadata": "^0.1.13",
+    "reflect-metadata": "^0.1.12",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.5.7"
+    "rxjs": "^6.0.0 || ^7.0.0"
   },
   "peerDependencies": {
     "@nestjs/common": "^7.0.0 || ^8.0.0",
