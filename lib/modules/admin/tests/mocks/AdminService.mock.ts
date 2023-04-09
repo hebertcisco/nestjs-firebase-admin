@@ -5,7 +5,7 @@ import type { AppOptions, Credential } from 'firebase-admin/app';
 import { Agent } from 'node:http';
 
 export class AdminServiceMock {
-  private name: string = 'mock';
+  private name = 'mock';
   private options: AppOptions = {
     credential: null,
     databaseURL: 'https://mock.firebaseio.com',
