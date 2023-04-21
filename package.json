@@ -34,7 +34,7 @@
     "postversion": "git push && git push --tags"
   },
   "dependencies": {
-    "firebase-admin": "11.6.0",
+    "firebase-admin": "11.7.0",
     "nest-shared": "^5.0.1",
     "nestjs-firebase-admin": "0.0.74"
   },
@@ -49,14 +49,14 @@
     "!mips"
   ],
   "devDependencies": {
-    "@commitlint/cli": "17.5.1",
-    "@commitlint/config-angular": "17.4.4",
+    "@commitlint/cli": "17.6.1",
+    "@commitlint/config-angular": "17.6.1",
     "@nestjs/common": "9.4.0",
     "@nestjs/core": "9.4.0",
     "@nestjs/platform-express": "9.4.0",
     "@nestjs/testing": "9.4.0",
-    "@types/jest": "29.5.0",
-    "@types/node": "18.15.11",
+    "@types/jest": "29.5.1",
+    "@types/node": "18.15.12",
     "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",
@@ -71,7 +71,7 @@
     "prettier": "^2.8.7",
     "reflect-metadata": "0.1.13",
     "release-it": "15.10.1",
-    "rimraf": "4.4.1",
+    "rimraf": "5.0.0",
     "rxjs": "7.8.0",
     "supertest": "^6.3.3",
     "ts-jest": "29.1.0",
