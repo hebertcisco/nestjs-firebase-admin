@@ -22,6 +22,7 @@ on:
           - "All"
           - active
           - deleted
+          - failure
           - disabled_inactivity
           - disabled_manually
       dry_run:
