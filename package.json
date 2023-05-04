@@ -34,7 +34,7 @@
     "postversion": "git push && git push --tags"
   },
   "dependencies": {
-    "firebase-admin": "11.7.0",
+    "firebase-admin": "11.8.0",
     "nest-shared": "^5.0.1",
     "nestjs-firebase-admin": "0.0.76"
   },
