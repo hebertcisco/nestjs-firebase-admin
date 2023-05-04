@@ -36,7 +36,7 @@
   "dependencies": {
     "firebase-admin": "11.8.0",
     "nest-shared": "^5.0.1",
-    "nestjs-firebase-admin": "0.0.76"
+    "nestjs-firebase-admin": "0.0.74"
   },
   "os": [
     "!darwin",
@@ -50,7 +50,7 @@
   ],
   "devDependencies": {
     "@commitlint/cli": "17.6.3",
-    "@commitlint/config-angular": "17.6.3",
+    "@commitlint/config-angular": "17.6.1",
     "@nestjs/common": "9.4.0",
     "@nestjs/core": "9.4.0",
     "@nestjs/platform-express": "9.4.0",
