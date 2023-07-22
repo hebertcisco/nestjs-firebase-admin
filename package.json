@@ -36,7 +36,7 @@
   "dependencies": {
     "firebase-admin": "11.10.1",
     "nest-shared": "^5.0.1",
-    "nestjs-firebase-admin": "0.0.74"
+    "nestjs-firebase-admin": "0.0.79"
   },
   "os": [
     "!darwin",
