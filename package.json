@@ -5,10 +5,6 @@
   "author": "Hebert Cisco",
   "license": "MIT",
   "url": "https://github.com/hebertcisco/nestjs-firebase-admin#readme",
-  "engines": {
-    "node": ">=16.17.1",
-    "npm": ">=8.15.0"
-  },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
@@ -40,8 +36,12 @@
     "firebase-admin": "11.10.1",
     "nest-shared": "^5.0.3"
   },
+  "engines": {
+    "node": ">=16",
+    "npm": ">=8"
+  },
   "os": [
-    "!darwin",
+    "darwin",
     "linux",
     "win32"
   ],
