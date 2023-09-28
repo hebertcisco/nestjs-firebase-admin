@@ -51,7 +51,7 @@
     "!mips"
   ],
   "devDependencies": {
-    "@commitlint/cli": "17.7.1",
+    "@commitlint/cli": "17.7.2",
     "@commitlint/config-angular": "17.7.0",
     "@nestjs/testing": "10.2.6",
     "@types/jest": "29.5.5",
