@@ -46,7 +46,7 @@ import { CommonService } from './common.service';
 @Module({
   imports: [
     AdminModule.register({
-     credential: {
+      credential: {
         projectId: 'my-project-id',
         clientEmail: 'my-client-email',
         privateKey: 'my-private-key',
@@ -75,5 +75,5 @@ Or buy me a coffee 🙌🏾
 
 ## 📝 License
 
-Copyright © 2023 [Hebert F Barros](https://github.com/hebertcisco).<br />
+Copyright © 2024 [Hebert F Barros](https://github.com/hebertcisco).<br />
 This project is [MIT](LICENSE) licensed.
