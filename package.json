@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@nestjs/common": "10.2.8",
-    "@nestjs/core": "10.2.8",
+    "@nestjs/core": "10.4.3",
     "@nestjs/platform-express": "10.4.3",
     "firebase-admin": "12.0.0",
     "nest-shared": "^5.0.3"
