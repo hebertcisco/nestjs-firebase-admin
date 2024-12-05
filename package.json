@@ -40,16 +40,6 @@
     "node": ">=16",
     "npm": ">=8"
   },
-  "os": [
-    "darwin",
-    "linux",
-    "win32"
-  ],
-  "cpu": [
-    "x64",
-    "arm",
-    "!mips"
-  ],
   "devDependencies": {
     "@commitlint/cli": "18.6.1",
     "@commitlint/config-angular": "18.6.1",
