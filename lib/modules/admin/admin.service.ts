@@ -18,21 +18,21 @@ import type { AdminModuleOptions } from './types';
 
 /**
  * Service for managing Firebase Admin SDK instances and configurations.
- * 
+ *
  * This service provides a wrapper around the Firebase Admin SDK's core functionality,
  * offering methods to initialize, manage, and access Firebase Admin instances.
- * 
+ *
  * @see {@link https://firebase.google.com/docs/admin/setup Firebase Admin SDK Setup}
  * @see {@link https://firebase.google.com/docs/reference/admin/node/firebase-admin Firebase Admin SDK Reference}
- * 
+ *
  * @example
  * ```typescript
  * // Initialize Firebase Admin
  * const adminService = new AdminService(options);
- * 
+ *
  * // Get Firebase Admin instance
  * const admin = adminService.admin();
- * 
+ *
  * // Get initialized app
  * const app = adminService.getApp;
  * ```
@@ -41,7 +41,7 @@ import type { AdminModuleOptions } from './types';
 export class AdminService {
   /**
    * Creates an instance of AdminService and initializes Firebase Admin SDK.
-   * 
+   *
    * @param options - Configuration options for Firebase Admin SDK
    * @see {@link https://firebase.google.com/docs/admin/setup#initialize-sdk Initialize SDK}
    */
@@ -57,7 +57,7 @@ export class AdminService {
 
   /**
    * Gets the default application credentials.
-   * 
+   *
    * @param httpAgent - Optional HTTP agent for the credentials
    * @returns The default application credentials
    * @see {@link https://firebase.google.com/docs/admin/setup#initialize-sdk Initialize SDK}
@@ -68,7 +68,7 @@ export class AdminService {
 
   /**
    * Deletes a Firebase Admin app instance.
-   * 
+   *
    * @param app - The Firebase Admin app instance to delete
    * @returns Promise that resolves when the app is deleted
    * @see {@link https://firebase.google.com/docs/reference/admin/node/firebase-admin.app#deleteapp Firebase Admin deleteApp}
@@ -79,7 +79,7 @@ export class AdminService {
 
   /**
    * Gets all initialized Firebase Admin app instances.
-   * 
+   *
    * @returns Array of initialized Firebase Admin app instances
    * @see {@link https://firebase.google.com/docs/reference/admin/node/firebase-admin.app#getapps Firebase Admin getApps}
    */
@@ -89,7 +89,7 @@ export class AdminService {
 
   /**
    * Gets the default Firebase Admin app instance.
-   * 
+   *
    * @returns The default Firebase Admin app instance
    * @see {@link https://firebase.google.com/docs/reference/admin/node/firebase-admin.app#getapp Firebase Admin getApp}
    */
@@ -99,7 +99,7 @@ export class AdminService {
 
   /**
    * Gets the Firebase Admin SDK instance.
-   * 
+   *
    * @returns The Firebase Admin SDK instance
    * @see {@link https://firebase.google.com/docs/reference/admin/node/firebase-admin Firebase Admin SDK}
    */
@@ -109,7 +109,7 @@ export class AdminService {
 
   /**
    * Creates an Observable that emits the initialized Firebase Admin app instance.
-   * 
+   *
    * @returns Observable that emits the Firebase Admin app instance
    * @see {@link https://firebase.google.com/docs/reference/admin/node/firebase-admin.app#initializeapp Firebase Admin initializeApp}
    */
@@ -128,7 +128,7 @@ export class AdminService {
 
   /**
    * Gets the initialized Firebase Admin app instance.
-   * 
+   *
    * @returns The initialized Firebase Admin app instance
    * @see {@link https://firebase.google.com/docs/reference/admin/node/firebase-admin.app#initializeapp Firebase Admin initializeApp}
    */
@@ -138,7 +138,7 @@ export class AdminService {
 
   /**
    * Initializes a new Firebase Admin app instance.
-   * 
+   *
    * @returns The initialized Firebase Admin app instance
    * @see {@link https://firebase.google.com/docs/reference/admin/node/firebase-admin.app#initializeapp Firebase Admin initializeApp}
    */
