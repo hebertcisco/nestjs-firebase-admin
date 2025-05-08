@@ -11,10 +11,19 @@ import { Database } from 'firebase-admin/database';
  */
 export class DatabaseServiceMock {
     /**
+     * Storage for mock data to simulate persistence between operations
+     */
+    private mockStorage: Record<string, any> = {};
+
+    /**
      * Mock reference object that simulates Firebase Database reference methods
      */
     private mockRef = {
-        get: jest.fn().mockResolvedValue({ val: () => 'mock-data' }),
+        get: jest.fn().mockImplementation(() => {
+            return Promise.resolve({
+                val: () => 'mock-data'
+            });
+        }),
         set: jest.fn().mockResolvedValue(undefined),
         update: jest.fn().mockResolvedValue(undefined),
         remove: jest.fn().mockResolvedValue(undefined),
@@ -46,6 +55,7 @@ export class DatabaseServiceMock {
      * @param data The data to set
      */
     async set<T>(path: string, data: T): Promise<void> {
+        this.mockStorage[path] = data;
         await this.ref(path).set(data);
     }
 
@@ -55,6 +65,15 @@ export class DatabaseServiceMock {
      * @param data The data to update
      */
     async update<T>(path: string, data: Partial<T>): Promise<void> {
+        if (!this.mockStorage[path]) {
+            this.mockStorage[path] = {};
+        }
+        
+        this.mockStorage[path] = {
+            ...this.mockStorage[path],
+            ...data
+        };
+        
         await this.ref(path).update(data);
     }
 
@@ -63,6 +82,7 @@ export class DatabaseServiceMock {
      * @param path The path to remove data from
      */
     async remove(path: string): Promise<void> {
+        delete this.mockStorage[path];
         await this.ref(path).remove();
     }
 
@@ -74,7 +94,17 @@ export class DatabaseServiceMock {
      */
     async push<T>(path: string, data: T): Promise<string> {
         const ref = await this.ref(path).push(data);
-        return ref.key || '';
+        const key = ref.key || '';
+        
+        if (key) {
+            if (!this.mockStorage[path]) {
+                this.mockStorage[path] = {};
+            }
+            
+            this.mockStorage[`${path}/${key}`] = data;
+        }
+        
+        return key;
     }
 
     /**
@@ -82,10 +112,41 @@ export class DatabaseServiceMock {
      * Useful for cleaning up between tests.
      */
     resetMocks() {
-        Object.values(this.mockRef).forEach(mock => {
-            if (typeof mock === 'function' && 'mockReset' in mock) {
-                mock.mockReset();
-            }
+        this.mockStorage = {};
+        
+        // Resetar as funções mock para seus estados iniciais
+        this.mockRef.get = jest.fn().mockImplementation(() => {
+            return Promise.resolve({
+                val: () => 'mock-data'
+            });
         });
+        this.mockRef.set = jest.fn().mockResolvedValue(undefined);
+        this.mockRef.update = jest.fn().mockResolvedValue(undefined);
+        this.mockRef.remove = jest.fn().mockResolvedValue(undefined);
+        this.mockRef.push = jest.fn().mockResolvedValue({ key: 'mock-key' });
+    }
+
+    /**
+     * Configure a custom behavior for one of the mock methods
+     * Useful for testing error conditions or special cases
+     * 
+     * @param method The method name to configure ('get', 'set', etc.)
+     * @param implementation The custom implementation function
+     */
+    configureMock(method: keyof typeof this.mockRef, implementation: any) {
+        if (this.mockRef[method] && typeof this.mockRef[method] === 'function') {
+            this.mockRef[method] = implementation;
+        }
+    }
+
+    /**
+     * Get the stored mock data for a specific path
+     * Useful for verifying data was stored correctly
+     * 
+     * @param path The path to get data from
+     * @returns The stored data or undefined if not found
+     */
+    getMockData(path: string): any {
+        return this.mockStorage[path];
     }
 } 
