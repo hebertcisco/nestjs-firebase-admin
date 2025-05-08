@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { DatabaseService } from '../database.service';
-import { DatabaseServiceMock } from './mocks/DatabaseService.mock';
+import { DatabaseService } from './database.service'; // Corrected import path
+import { DatabaseServiceMock } from '../../tests/mocks/DatabaseService.mock'; // Fixed import path
 
 /**
  * Test suite for DatabaseService

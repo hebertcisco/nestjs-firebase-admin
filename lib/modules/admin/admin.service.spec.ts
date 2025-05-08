@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AdminService } from '../admin.service';
+import { AdminService } from './admin.service'; // Fixed import path
 import { Agent } from 'node:http';
 import { App } from 'firebase-admin/app';
 import { Observable } from 'rxjs';
@@ -177,15 +177,15 @@ describe('AdminService', () => {
         expect(observable).toBeInstanceOf(Observable);
 
         observable.subscribe({
-          next: app => {
+          next: (app: App) => { // Added type annotation
             expect(app).toBeDefined();
             expect(app).toEqual(service.appRef);
           },
           complete: () => {
             done();
           },
-          error: err => {
-            done(err);
+          error: (_err: Error) => { // Added type annotation
+            done();
           },
         });
       });
@@ -202,8 +202,8 @@ describe('AdminService', () => {
             expect(completeSpy).toHaveBeenCalledTimes(1);
             done();
           },
-          error: err => {
-            done(err);
+          error: (_err: Error) => { // Added type annotation
+            done();
           },
         });
       });

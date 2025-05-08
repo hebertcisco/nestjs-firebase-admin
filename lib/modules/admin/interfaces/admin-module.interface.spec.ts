@@ -1,4 +1,4 @@
-import { AdminModuleOptionsFactory, AdminModuleAsyncOptions } from '../interfaces/admin-module.interface';
+import { AdminModuleOptionsFactory, AdminModuleAsyncOptions } from './admin-module.interface';
 
 describe('AdminModuleOptionsFactory', () => {
   it('should define a method to create admin options', () => {
