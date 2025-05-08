@@ -87,6 +87,72 @@ import { AdminModule } from 'nestjs-firebase-admin';
 export class AppModule {}
 ```
 
+## DatabaseService
+
+O `DatabaseService` fornece uma interface limpa e type-safe para interagir com o Firebase Realtime Database. Este serviço é injetado automaticamente quando você importa o `AdminModule`.
+
+### Recursos
+
+- Operações CRUD completas (Create, Read, Update, Delete)
+- Suporte a tipos TypeScript
+- Métodos assíncronos com Promises
+- Manipulação de referências do banco de dados
+- Suporte a operações de lista com chaves únicas
+
+### Exemplo de Uso
+
+```ts
+import { Injectable } from '@nestjs/common';
+import { DatabaseService } from 'nestjs-firebase-admin';
+
+@Injectable()
+export class UsersService {
+  constructor(private readonly databaseService: DatabaseService) {}
+
+  // Obter dados de um caminho
+  async getUser(userId: string) {
+    return this.databaseService.get<User>(`users/${userId}`);
+  }
+
+  // Definir dados em um caminho
+  async createUser(userId: string, userData: User) {
+    await this.databaseService.set(`users/${userId}`, userData);
+  }
+
+  // Atualizar campos específicos
+  async updateUser(userId: string, updates: Partial<User>) {
+    await this.databaseService.update(`users/${userId}`, updates);
+  }
+
+  // Remover dados
+  async deleteUser(userId: string) {
+    await this.databaseService.remove(`users/${userId}`);
+  }
+
+  // Adicionar a uma lista
+  async addUser(userData: User) {
+    const newKey = await this.databaseService.push('users', userData);
+    return newKey;
+  }
+
+  // Obter uma referência do banco de dados
+  async getUsersRef() {
+    return this.databaseService.ref('users');
+  }
+}
+```
+
+### Métodos Disponíveis
+
+| Método | Descrição | Documentação |
+|--------|-----------|--------------|
+| `ref(path)` | Obtém uma referência para um caminho específico | [Firebase Ref](https://firebase.google.com/docs/database/admin/retrieve-data#section-queries) |
+| `get<T>(path)` | Obtém dados de um caminho específico | [Read Data](https://firebase.google.com/docs/database/admin/retrieve-data#section-read-once) |
+| `set<T>(path, data)` | Define dados em um caminho específico | [Set Data](https://firebase.google.com/docs/database/admin/save-data#section-set) |
+| `update<T>(path, data)` | Atualiza campos específicos em um caminho | [Update Data](https://firebase.google.com/docs/database/admin/save-data#section-update) |
+| `remove(path)` | Remove dados de um caminho específico | [Delete Data](https://firebase.google.com/docs/database/admin/save-data#section-delete) |
+| `push<T>(path, data)` | Adiciona dados a uma lista | [Push Data](https://firebase.google.com/docs/database/admin/save-data#section-push) |
+
 ## Testagem
 
 Para rodar os testes, use os seguintes comandos:
