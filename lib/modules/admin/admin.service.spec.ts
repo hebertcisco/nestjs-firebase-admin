@@ -177,14 +177,16 @@ describe('AdminService', () => {
         expect(observable).toBeInstanceOf(Observable);
 
         observable.subscribe({
-          next: (app: App) => { // Added type annotation
+          next: (app: App) => {
+            // Added type annotation
             expect(app).toBeDefined();
             expect(app).toEqual(service.appRef);
           },
           complete: () => {
             done();
           },
-          error: (_err: Error) => { // Added type annotation
+          error: (_err: Error) => {
+            // Added type annotation
             done();
           },
         });
@@ -202,7 +204,8 @@ describe('AdminService', () => {
             expect(completeSpy).toHaveBeenCalledTimes(1);
             done();
           },
-          error: (_err: Error) => { // Added type annotation
+          error: (_err: Error) => {
+            // Added type annotation
             done();
           },
         });

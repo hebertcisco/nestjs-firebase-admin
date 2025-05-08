@@ -1,4 +1,7 @@
-import { AdminModuleOptionsFactory, AdminModuleAsyncOptions } from './admin-module.interface';
+import {
+  AdminModuleOptionsFactory,
+  AdminModuleAsyncOptions,
+} from './admin-module.interface';
 
 describe('AdminModuleOptionsFactory', () => {
   it('should define a method to create admin options', () => {
@@ -9,7 +12,9 @@ describe('AdminModuleOptionsFactory', () => {
     }
 
     const factory = new TestFactory();
-    expect(factory.createAdminOptions()).toEqual({ credential: { projectId: 'test' } });
+    expect(factory.createAdminOptions()).toEqual({
+      credential: { projectId: 'test' },
+    });
   });
 });
 
