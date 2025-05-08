@@ -11,17 +11,17 @@
 [![Free. Built on open source. Runs everywhere.](https://img.shields.io/badge/VS_Code-0078D4?style=flat&logo=visual%20studio%20code&logoColor=white)](https://code.visualstudio.com/)
 [![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=flat&logo=githubactions&logoColor=white)](https://github.com/hebertcisco/nestjs-firebase-admin/actions)
 
-> Firebase Admin SDK para NestJS :fire:
+> Firebase Admin SDK for NestJS :fire:
 
-## Requisitos
+## Requirements
 
 - **Node.js**: >= 20
 - **NPM**: >= 10
 - **NestJS**: >= 7.0.0
 
-## Instalação
+## Installation
 
-Instale o pacote usando `yarn`, `npm` ou `pnpm`:
+Install the package using `yarn`, `npm`, or `pnpm`:
 
 ```bash
 # yarn
@@ -38,9 +38,9 @@ npm i nestjs-firebase-admin --save
 pnpm add nestjs-firebase-admin --save
 ```
 
-## Exemplo de Uso
+## Usage Example
 
-Aqui está um exemplo de como configurar o módulo `AdminModule` no NestJS:
+Here is an example of how to configure the `AdminModule` in NestJS:
 
 ```ts
 // common.module.ts
@@ -62,9 +62,9 @@ import { AdminModule } from 'nestjs-firebase-admin';
 export class CommonModule {}
 ```
 
-### Registro Assíncrono
+### Asynchronous Registration
 
-Se você precisar de uma configuração assíncrona, use o método `registerAsync`:
+If you need asynchronous configuration, use the `registerAsync` method:
 
 ```ts
 import { Module } from '@nestjs/common';
@@ -89,17 +89,17 @@ export class AppModule {}
 
 ## DatabaseService
 
-O `DatabaseService` fornece uma interface limpa e type-safe para interagir com o Firebase Realtime Database. Este serviço é injetado automaticamente quando você importa o `AdminModule`.
+The `DatabaseService` provides a clean and type-safe interface for interacting with the Firebase Realtime Database. This service is automatically injected when you import the `AdminModule`.
 
-### Recursos
+### Features
 
-- Operações CRUD completas (Create, Read, Update, Delete)
-- Suporte a tipos TypeScript
-- Métodos assíncronos com Promises
-- Manipulação de referências do banco de dados
-- Suporte a operações de lista com chaves únicas
+- Full CRUD operations (Create, Read, Update, Delete)
+- TypeScript type support
+- Asynchronous methods with Promises
+- Database reference handling
+- List operations with unique keys
 
-### Exemplo de Uso
+### Usage Example
 
 ```ts
 import { Injectable } from '@nestjs/common';
@@ -109,101 +109,101 @@ import { DatabaseService } from 'nestjs-firebase-admin';
 export class UsersService {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  // Obter dados de um caminho
+  // Get data from a path
   async getUser(userId: string) {
     return this.databaseService.get<User>(`users/${userId}`);
   }
 
-  // Definir dados em um caminho
+  // Set data at a path
   async createUser(userId: string, userData: User) {
     await this.databaseService.set(`users/${userId}`, userData);
   }
 
-  // Atualizar campos específicos
+  // Update specific fields
   async updateUser(userId: string, updates: Partial<User>) {
     await this.databaseService.update(`users/${userId}`, updates);
   }
 
-  // Remover dados
+  // Remove data
   async deleteUser(userId: string) {
     await this.databaseService.remove(`users/${userId}`);
   }
 
-  // Adicionar a uma lista
+  // Add to a list
   async addUser(userData: User) {
     const newKey = await this.databaseService.push('users', userData);
     return newKey;
   }
 
-  // Obter uma referência do banco de dados
+  // Get a database reference
   async getUsersRef() {
     return this.databaseService.ref('users');
   }
 }
 ```
 
-### Métodos Disponíveis
+### Available Methods
 
-| Método | Descrição | Documentação |
-|--------|-----------|--------------|
-| `ref(path)` | Obtém uma referência para um caminho específico | [Firebase Ref](https://firebase.google.com/docs/database/admin/retrieve-data#section-queries) |
-| `get<T>(path)` | Obtém dados de um caminho específico | [Read Data](https://firebase.google.com/docs/database/admin/retrieve-data#section-read-once) |
-| `set<T>(path, data)` | Define dados em um caminho específico | [Set Data](https://firebase.google.com/docs/database/admin/save-data#section-set) |
-| `update<T>(path, data)` | Atualiza campos específicos em um caminho | [Update Data](https://firebase.google.com/docs/database/admin/save-data#section-update) |
-| `remove(path)` | Remove dados de um caminho específico | [Delete Data](https://firebase.google.com/docs/database/admin/save-data#section-delete) |
-| `push<T>(path, data)` | Adiciona dados a uma lista | [Push Data](https://firebase.google.com/docs/database/admin/save-data#section-push) |
+| Method | Description | Documentation |
+|--------|-------------|---------------|
+| `ref(path)` | Gets a reference to a specific path | [Firebase Ref](https://firebase.google.com/docs/database/admin/retrieve-data#section-queries) |
+| `get<T>(path)` | Retrieves data from a specific path | [Read Data](https://firebase.google.com/docs/database/admin/retrieve-data#section-read-once) |
+| `set<T>(path, data)` | Sets data at a specific path | [Set Data](https://firebase.google.com/docs/database/admin/save-data#section-set) |
+| `update<T>(path, data)` | Updates specific fields at a path | [Update Data](https://firebase.google.com/docs/database/admin/save-data#section-update) |
+| `remove(path)` | Removes data from a specific path | [Delete Data](https://firebase.google.com/docs/database/admin/save-data#section-delete) |
+| `push<T>(path, data)` | Adds data to a list | [Push Data](https://firebase.google.com/docs/database/admin/save-data#section-push) |
 
-## Testagem
+## Testing
 
-Para rodar os testes, use os seguintes comandos:
+To run tests, use the following commands:
 
-### Testes Unitários
+### Unit Tests
 
 ```bash
 npm test
 ```
 
-### Testes com Cobertura
+### Coverage Tests
 
 ```bash
 npm run test:cov
 ```
 
-### Testes em Modo Watch
+### Watch Mode Tests
 
 ```bash
 npm run test:watch
 ```
 
-### Debug de Testes
+### Debug Tests
 
 ```bash
 npm run test:debug
 ```
 
-## Scripts Disponíveis
+## Available Scripts
 
-Os scripts disponíveis no `package.json` incluem:
+The available scripts in `package.json` include:
 
 - **Build**: `npm run build`
 - **Lint**: `npm run lint`
 - **Format**: `npm run format`
 - **Release**: `npm run release`
 
-## Contribuindo
+## Contributing
 
-Contribuições, issues e solicitações de funcionalidades são bem-vindas!<br />Sinta-se à vontade para verificar a [página de issues](https://github.com/hebertcisco/nestjs-firebase-admin/issues).
+Contributions, issues, and feature requests are welcome!<br />Feel free to check the [issues page](https://github.com/hebertcisco/nestjs-firebase-admin/issues).
 
-## Mostre seu Apoio
+## Show Your Support
 
-Dê uma ⭐️ se este projeto foi útil para você!
+Give a ⭐️ if this project helped you!
 
-Ou compre um café para o autor 🙌🏾
+Or buy the author a coffee 🙌🏾
 
 <a href="https://www.buymeacoffee.com/hebertcisco">
     <img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=hebertcisco&button_colour=FFDD00&font_colour=000000&font_family=Inter&outline_colour=000000&coffee_colour=ffffff" />
 </a>
 
-## 📝 Licença
+## 📝 License
 
-Este projeto está sob a licença [MIT](LICENSE).
+This project is under the [MIT](LICENSE) license.
