@@ -37,8 +37,8 @@
     "nest-shared": "^5.0.6"
   },
   "engines": {
-    "node": ">=16",
-    "npm": ">=8"
+    "node": ">=20",
+    "npm": ">=10"
   },
   "devDependencies": {
     "@commitlint/cli": "18.6.1",
