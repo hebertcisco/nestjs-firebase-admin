@@ -11,11 +11,17 @@
 [![Free. Built on open source. Runs everywhere.](https://img.shields.io/badge/VS_Code-0078D4?style=flat&logo=visual%20studio%20code&logoColor=white)](https://code.visualstudio.com/)
 [![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=flat&logo=githubactions&logoColor=white)](https://github.com/hebertcisco/nestjs-firebase-admin/actions)
 
-> Firebase Admin SDK for Nestjs :fire:
+> Firebase Admin SDK para NestJS :fire:
 
-## Installation
+## Requisitos
 
-> Install with yarn or npm: `yarn` or `npm`:
+- **Node.js**: >= 20
+- **NPM**: >= 10
+- **NestJS**: >= 7.0.0
+
+## Instalação
+
+Instale o pacote usando `yarn`, `npm` ou `pnpm`:
 
 ```bash
 # yarn
@@ -32,16 +38,14 @@ npm i nestjs-firebase-admin --save
 pnpm add nestjs-firebase-admin --save
 ```
 
-### Usage example
+## Exemplo de Uso
+
+Aqui está um exemplo de como configurar o módulo `AdminModule` no NestJS:
 
 ```ts
 // common.module.ts
 import { Module } from '@nestjs/common';
-
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { AdminModule } from 'nestjs-firebase-admin';
-
-import { CommonService } from './common.service';
 
 @Module({
   imports: [
@@ -54,26 +58,86 @@ import { CommonService } from './common.service';
       databaseURL: 'https://my-project-id.firebaseio.com',
     }),
   ],
-  providers: [CommonService],
 })
 export class CommonModule {}
 ```
 
-## 🤝 Contributing
+### Registro Assíncrono
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](issues).
+Se você precisar de uma configuração assíncrona, use o método `registerAsync`:
 
-## Show your support
+```ts
+import { Module } from '@nestjs/common';
+import { AdminModule } from 'nestjs-firebase-admin';
 
-Give a ⭐️ if this project helped you!
+@Module({
+  imports: [
+    AdminModule.registerAsync({
+      useFactory: async () => ({
+        credential: {
+          projectId: 'my-project-id',
+          clientEmail: 'my-client-email',
+          privateKey: 'my-private-key',
+        },
+        databaseURL: 'https://my-project-id.firebaseio.com',
+      }),
+    }),
+  ],
+})
+export class AppModule {}
+```
 
-Or buy me a coffee 🙌🏾
+## Testagem
+
+Para rodar os testes, use os seguintes comandos:
+
+### Testes Unitários
+
+```bash
+npm test
+```
+
+### Testes com Cobertura
+
+```bash
+npm run test:cov
+```
+
+### Testes em Modo Watch
+
+```bash
+npm run test:watch
+```
+
+### Debug de Testes
+
+```bash
+npm run test:debug
+```
+
+## Scripts Disponíveis
+
+Os scripts disponíveis no `package.json` incluem:
+
+- **Build**: `npm run build`
+- **Lint**: `npm run lint`
+- **Format**: `npm run format`
+- **Release**: `npm run release`
+
+## Contribuindo
+
+Contribuições, issues e solicitações de funcionalidades são bem-vindas!<br />Sinta-se à vontade para verificar a [página de issues](https://github.com/hebertcisco/nestjs-firebase-admin/issues).
+
+## Mostre seu Apoio
+
+Dê uma ⭐️ se este projeto foi útil para você!
+
+Ou compre um café para o autor 🙌🏾
 
 <a href="https://www.buymeacoffee.com/hebertcisco">
     <img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=hebertcisco&button_colour=FFDD00&font_colour=000000&font_family=Inter&outline_colour=000000&coffee_colour=ffffff" />
 </a>
 
-## 📝 License
+## 📝 Licença
 
-Copyright © 2024 [Hebert F Barros](https://github.com/hebertcisco).<br />
-This project is [MIT](LICENSE) licensed.
+Este projeto está sob a licença [MIT](LICENSE).
