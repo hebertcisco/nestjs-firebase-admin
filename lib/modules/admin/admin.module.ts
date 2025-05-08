@@ -8,6 +8,7 @@ import {
 } from './admin.constants';
 
 import { AdminService } from './admin.service';
+import { DatabaseService } from './database.service';
 
 import type {
   AdminModuleAsyncOptions,
@@ -17,8 +18,8 @@ import type {
 import type { AdminModuleOptions } from './types';
 
 @Module({
-  providers: [AdminService],
-  exports: [AdminService],
+  providers: [AdminService, DatabaseService],
+  exports: [AdminService, DatabaseService],
 })
 export class AdminModule {
   static register(options: AdminModuleOptions): DynamicModule {
