@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  node: circleci/node@5.0.2
+
 aliases:
   - &restore-cache
     restore_cache:
@@ -15,23 +18,12 @@ aliases:
 
 jobs:
   build:
+    executor: node/default
     working_directory: ~/nest
-    docker:
-      - image: circleci/node:20
     steps:
       - checkout
-      - run:
-          name: Update NPM version
-          command: "sudo npm install -g npm@9"
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-      - run:
-          name: Install dependencies
-          command: npm ci
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - ./node_modules
+      - node/install-packages:
+          pkg-manager: npm
       - run:
           name: Build
           command: npm run build
