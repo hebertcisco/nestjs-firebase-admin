@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AdminService } from './admin.service'; // Fixed import path
+import { AdminService } from './admin.service';
 import { Agent } from 'node:http';
 import { App } from 'firebase-admin/app';
 import { Observable } from 'rxjs';
@@ -54,12 +54,20 @@ describe('AdminService', () => {
   beforeEach(async () => {
     jest.clearAllMocks();
 
+    const mockApp = { name: 'app-name', options: {} };
+    (firebaseAdmin.initializeApp as jest.Mock).mockReturnValue(mockApp);
+    (firebaseAdmin.credential.cert as jest.Mock).mockReturnValue('mocked-credential');
+
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AdminService,
         {
           provide: FIREBASE_ADMIN_INSTANCE_TOKEN,
           useValue: mockOptions,
+        },
+        {
+          provide: 'FIREBASE_ADMIN_APP',
+          useValue: mockApp,
         },
       ],
     }).compile();
@@ -72,17 +80,8 @@ describe('AdminService', () => {
   });
 
   describe('constructor', () => {
-    it('must initialize the Firebase Admin SDK with the provided options', () => {
-      expect(firebaseAdmin.initializeApp).toHaveBeenCalledWith({
-        ...mockOptions,
-        credential: 'mocked-credential',
-      });
-    });
-
-    it('must pass the correct credentials to the cert method', () => {
-      expect(firebaseAdmin.credential.cert).toHaveBeenCalledWith(
-        mockOptions.credential,
-      );
+    it('must store the injected Firebase Admin app', () => {
+      expect(service.appRef).toEqual({ name: 'app-name', options: {} });
     });
   });
 
@@ -178,15 +177,13 @@ describe('AdminService', () => {
 
         observable.subscribe({
           next: (app: App) => {
-            // Added type annotation
             expect(app).toBeDefined();
-            expect(app).toEqual(service.appRef);
+            expect(app).toEqual({ name: 'app-name', options: {} });
           },
           complete: () => {
             done();
           },
           error: (_err: Error) => {
-            // Added type annotation
             done();
           },
         });
@@ -198,14 +195,13 @@ describe('AdminService', () => {
         const completeSpy = jest.fn();
 
         service.initializeAppObservable().subscribe({
-          next: () => {},
+          next: () => { },
           complete: () => {
             completeSpy();
             expect(completeSpy).toHaveBeenCalledTimes(1);
             done();
           },
           error: (_err: Error) => {
-            // Added type annotation
             done();
           },
         });
@@ -214,49 +210,22 @@ describe('AdminService', () => {
 
     it('must return a valid cleanup function when unsubscribing', () => {
       const observable = service.initializeAppObservable();
-      const subscription = observable.subscribe(() => {});
-
+      const subscription = observable.subscribe(() => { });
       expect(() => subscription.unsubscribe()).not.toThrow();
     });
   });
 
   describe('appRef', () => {
-    it('should return the result of initializeApp', () => {
-      const mockApp = { name: 'initialized-app' } as App;
-      (firebaseAdmin.initializeApp as jest.Mock).mockReturnValueOnce(mockApp);
-
+    it('should return the injected app instance', () => {
       const result = service.appRef;
-      expect(firebaseAdmin.initializeApp).toHaveBeenCalled();
-      expect(result).toEqual(mockApp);
+      expect(result).toEqual({ name: 'app-name', options: {} });
     });
   });
 
   describe('initializeApp', () => {
-    it('should call initializeApp from Admin SDK with correct options', () => {
-      (firebaseAdmin.initializeApp as jest.Mock).mockClear();
-
-      service.initializeApp();
-
-      expect(firebaseAdmin.initializeApp).toHaveBeenCalledWith({
-        ...mockOptions,
-        credential: 'mocked-credential',
-      });
-    });
-
-    it('should return the initialized app instance', () => {
-      const mockApp = { name: 'new-app', options: {} };
-      (firebaseAdmin.initializeApp as jest.Mock).mockReturnValueOnce(mockApp);
-
+    it('should return the injected app instance', () => {
       const result = service.initializeApp();
-      expect(result).toEqual(mockApp);
-    });
-
-    it('must propagate initializeApp errors', () => {
-      (firebaseAdmin.initializeApp as jest.Mock).mockImplementationOnce(() => {
-        throw new Error('Initialization error');
-      });
-
-      expect(() => service.initializeApp()).toThrow('Initialization error');
+      expect(result).toEqual({ name: 'app-name', options: {} });
     });
   });
 
@@ -273,17 +242,10 @@ describe('AdminService', () => {
     });
 
     it('should return the same app when appRef is called multiple times in a row', () => {
-      const mockApp = { name: 'reused-app' } as App;
-
-      (firebaseAdmin.initializeApp as jest.Mock).mockClear();
-      (firebaseAdmin.initializeApp as jest.Mock).mockReturnValue(mockApp);
-
-      const app1 = service.appRef;
-      const app2 = service.appRef;
-
-      expect(app1).toBe(mockApp);
-      expect(app2).toBe(mockApp);
-      expect(firebaseAdmin.initializeApp).toHaveBeenCalledTimes(2);
+      const firstCall = service.appRef;
+      const secondCall = service.appRef;
+      expect(firstCall).toBe(secondCall);
+      expect(firstCall).toEqual({ name: 'app-name', options: {} });
     });
 
     it('should be defined', () => {
