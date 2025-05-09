@@ -114,7 +114,9 @@ export class AdminModule {
         inject: [options.useClass],
       });
     } else {
-      throw new Error('One of useFactory, useExisting, or useClass must be provided in AdminModuleAsyncOptions');
+      throw new Error(
+        'One of useFactory, useExisting, or useClass must be provided in AdminModuleAsyncOptions',
+      );
     }
 
     return {
