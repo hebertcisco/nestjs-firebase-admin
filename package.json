@@ -8,6 +8,7 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
+    "start:debug": "nest start --debug --watch",
     "build": "npx tsc",
     "prebuild": "rimraf dist",
     "format": "npx prettier --write \"{lib,test}/**/*.ts\"",

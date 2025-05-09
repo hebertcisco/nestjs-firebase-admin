@@ -39,20 +39,22 @@ import type { AdminModuleOptions } from './types';
  */
 @Injectable()
 export class AdminService {
+  private readonly app: App;
+
   /**
    * Creates an instance of AdminService and initializes Firebase Admin SDK.
    *
    * @param options - Configuration options for Firebase Admin SDK
+   * @param firebaseApp
    * @see {@link https://firebase.google.com/docs/admin/setup#initialize-sdk Initialize SDK}
    */
   public constructor(
     @Inject(FIREBASE_ADMIN_INSTANCE_TOKEN)
     protected readonly options: AdminModuleOptions,
+    @Inject('FIREBASE_ADMIN_APP')
+    private readonly firebaseApp: App,
   ) {
-    Admin.initializeApp({
-      ...this.options,
-      credential: Admin.credential.cert(this.options.credential),
-    });
+    this.app = firebaseApp;
   }
 
   /**
@@ -133,7 +135,7 @@ export class AdminService {
    * @see {@link https://firebase.google.com/docs/reference/admin/node/firebase-admin.app#initializeapp Firebase Admin initializeApp}
    */
   public get appRef(): App {
-    return this.initializeApp();
+    return this.app;
   }
 
   /**
@@ -143,9 +145,6 @@ export class AdminService {
    * @see {@link https://firebase.google.com/docs/reference/admin/node/firebase-admin.app#initializeapp Firebase Admin initializeApp}
    */
   public initializeApp(): App {
-    return this.admin().initializeApp({
-      ...this.options,
-      credential: Admin.credential.cert(this.options.credential),
-    });
+    return this.app;
   }
 }

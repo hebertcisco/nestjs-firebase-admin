@@ -1,5 +1,6 @@
 import { DynamicModule, Module, Provider, Type } from '@nestjs/common';
 import { randomStringGenerator } from '@nestjs/common/utils/random-string-generator.util';
+import Admin from 'firebase-admin';
 
 import {
   ADMIN_MODULE_ID,
@@ -23,6 +24,11 @@ import type { AdminModuleOptions } from './types';
 })
 export class AdminModule {
   static register(options: AdminModuleOptions): DynamicModule {
+    const firebaseApp = Admin.initializeApp({
+      ...options,
+      credential: Admin.credential.cert(options.credential),
+    });
+
     return {
       module: AdminModule,
       providers: [
@@ -31,6 +37,10 @@ export class AdminModule {
           useValue: options,
         },
         {
+          provide: 'FIREBASE_ADMIN_APP',
+          useValue: firebaseApp,
+        },
+        {
           provide: ADMIN_MODULE_ID,
           useValue: randomStringGenerator(),
         },
@@ -38,57 +48,80 @@ export class AdminModule {
     };
   }
 
-  static registerAsync(options: AdminModuleAsyncOptions) {
+  static registerAsync(options: AdminModuleAsyncOptions): DynamicModule {
+    const providers: Provider[] = [];
+
+    if (options.useFactory) {
+      const factory = options.useFactory;
+      providers.push({
+        provide: FIREBASE_ADMIN_INSTANCE_TOKEN,
+        useFactory: factory,
+        inject: options.inject || [],
+      });
+      providers.push({
+        provide: 'FIREBASE_ADMIN_APP',
+        useFactory: async (...args: any[]) => {
+          const config = await factory(...args);
+          return Admin.initializeApp({
+            ...config,
+            credential: Admin.credential.cert(config.credential),
+          });
+        },
+        inject: options.inject || [],
+      });
+    } else if (options.useExisting) {
+      providers.push({
+        provide: FIREBASE_ADMIN_INSTANCE_TOKEN,
+        useFactory: async (optionsFactory: AdminModuleOptionsFactory) => {
+          const config = await optionsFactory.createAdminOptions();
+          return config;
+        },
+        inject: [options.useExisting],
+      });
+      providers.push({
+        provide: 'FIREBASE_ADMIN_APP',
+        useFactory: async (optionsFactory: AdminModuleOptionsFactory) => {
+          const config = await optionsFactory.createAdminOptions();
+          return Admin.initializeApp({
+            ...config,
+            credential: Admin.credential.cert(config.credential),
+          });
+        },
+        inject: [options.useExisting],
+      });
+    } else if (options.useClass) {
+      providers.push({
+        provide: options.useClass,
+        useClass: options.useClass,
+      });
+      providers.push({
+        provide: FIREBASE_ADMIN_INSTANCE_TOKEN,
+        useFactory: async (optionsFactory: AdminModuleOptionsFactory) => {
+          const config = await optionsFactory.createAdminOptions();
+          return config;
+        },
+        inject: [options.useClass],
+      });
+      providers.push({
+        provide: 'FIREBASE_ADMIN_APP',
+        useFactory: async (optionsFactory: AdminModuleOptionsFactory) => {
+          const config = await optionsFactory.createAdminOptions();
+          return Admin.initializeApp({
+            ...config,
+            credential: Admin.credential.cert(config.credential),
+          });
+        },
+        inject: [options.useClass],
+      });
+    } else {
+      throw new Error('One of useFactory, useExisting, or useClass must be provided in AdminModuleAsyncOptions');
+    }
+
     return {
       module: AdminModule,
       imports: options.imports,
-      providers: [
-        ...this.createAsyncProviders(options),
-        {
-          provide: FIREBASE_ADMIN_INSTANCE_TOKEN,
-          useFactory: (options: AdminModuleOptions) => options,
-          inject: [ADMIN_MODULE_OPTIONS],
-        },
-        {
-          provide: ADMIN_MODULE_ID,
-          useValue: randomStringGenerator(),
-        },
-        ...(options.extraProviders || []),
-      ],
-    };
-  }
-
-  private static createAsyncProviders(options: AdminModuleAsyncOptions) {
-    if (options.useExisting || options.useFactory) {
-      return [this.createAsyncOptionsProvider(options)];
-    }
-    return [
-      this.createAsyncOptionsProvider(options),
-      {
-        provide: options.useClass,
-        useClass: options.useClass,
-      },
-    ];
-  }
-
-  private static createAsyncOptionsProvider(
-    options: AdminModuleAsyncOptions,
-  ): Provider {
-    if (options.useFactory) {
-      return {
-        provide: ADMIN_MODULE_OPTIONS,
-        useFactory: options.useFactory,
-        inject: options.inject || [],
-      };
-    }
-    return {
-      provide: ADMIN_MODULE_OPTIONS,
-      useFactory: async (optionsFactory: AdminModuleOptionsFactory) =>
-        optionsFactory.createAdminOptions(),
-      inject: [
-        (options.useExisting ||
-          options.useClass) as Type<AdminModuleOptionsFactory>,
-      ],
+      providers,
+      exports: [AdminService],
     };
   }
 }

@@ -1,6 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { getDatabase } from 'firebase-admin/database';
 import { Database } from 'firebase-admin/database';
+import { FIREBASE_ADMIN_INSTANCE_TOKEN } from './admin.constants';
+import type { AdminModuleOptions } from './types';
+import Admin from 'firebase-admin';
+import { App } from 'firebase-admin/app';
 
 /**
  * Service for interacting with Firebase Realtime Database.
@@ -32,9 +36,23 @@ import { Database } from 'firebase-admin/database';
  */
 @Injectable()
 export class DatabaseService {
+  private app: App;
   private database: Database;
 
-  constructor() {
+  /**
+   * Creates an instance of AdminService and initializes Firebase Admin SDK.
+   *
+   * @param options - Configuration options for Firebase Admin SDK
+   * @param firebaseApp
+   * @see {@link https://firebase.google.com/docs/admin/setup#initialize-sdk Initialize SDK}
+   */
+  public constructor(
+    @Inject(FIREBASE_ADMIN_INSTANCE_TOKEN)
+    protected readonly options: AdminModuleOptions,
+    @Inject('FIREBASE_ADMIN_APP')
+    private readonly firebaseApp: App,
+  ) {
+    this.app = firebaseApp;
     this.database = getDatabase();
   }
 
