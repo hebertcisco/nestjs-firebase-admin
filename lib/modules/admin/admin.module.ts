@@ -12,6 +12,7 @@ import {
 import { AdminService } from './admin.service';
 import { DatabaseService } from './database.service';
 import { MessagingService } from './messaging.service';
+import { FirestoreService } from './firestore.service';
 
 import type {
   AdminModuleAsyncOptions,
@@ -25,6 +26,7 @@ import type { AdminModuleOptions } from './types';
     AdminService,
     DatabaseService,
     MessagingService,
+    FirestoreService,
     {
       provide: ADMIN_MODULE_ID,
       useValue: randomStringGenerator(),
@@ -34,6 +36,7 @@ import type { AdminModuleOptions } from './types';
     AdminService,
     DatabaseService,
     MessagingService,
+    FirestoreService,
   ],
 })
 export class AdminModule {
@@ -49,6 +52,7 @@ export class AdminModule {
         AdminService,
         DatabaseService,
         MessagingService,
+        FirestoreService,
         {
           provide: FIREBASE_ADMIN_INSTANCE_TOKEN,
           useValue: options,
@@ -66,6 +70,7 @@ export class AdminModule {
         AdminService,
         DatabaseService,
         MessagingService,
+        FirestoreService,
         FIREBASE_ADMIN_INSTANCE_TOKEN,
         FIREBASE_ADMIN_APP,
       ],
@@ -77,6 +82,7 @@ export class AdminModule {
       AdminService,
       DatabaseService,
       MessagingService,
+      FirestoreService,
       {
         provide: ADMIN_MODULE_ID,
         useValue: randomStringGenerator(),
@@ -159,6 +165,7 @@ export class AdminModule {
         AdminService,
         DatabaseService,
         MessagingService,
+        FirestoreService,
         FIREBASE_ADMIN_INSTANCE_TOKEN,
         FIREBASE_ADMIN_APP,
       ],

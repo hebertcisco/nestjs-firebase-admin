@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AdminService } from './admin.service';
+import { AdminService } from '../admin.service';
 import { Agent } from 'node:http';
 import { App } from 'firebase-admin/app';
 import { Observable } from 'rxjs';
