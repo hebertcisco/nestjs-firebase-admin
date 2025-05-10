@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { FirestoreService } from './firestore.service';
+import { FirestoreService } from '../firestore.service';
 import { App } from 'firebase-admin/app';
 import { Firestore, CollectionReference, DocumentReference, DocumentData } from 'firebase-admin/firestore';
-import { FIREBASE_ADMIN_APP } from './admin.constants';
+import { FIREBASE_ADMIN_APP } from '../admin.constants';
 
 interface AppWithFirestore extends App {
     firestore(): Firestore;
