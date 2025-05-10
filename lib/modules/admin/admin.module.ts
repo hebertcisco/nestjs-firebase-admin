@@ -6,10 +6,12 @@ import {
   ADMIN_MODULE_ID,
   ADMIN_MODULE_OPTIONS,
   FIREBASE_ADMIN_INSTANCE_TOKEN,
+  FIREBASE_ADMIN_APP,
 } from './admin.constants';
 
 import { AdminService } from './admin.service';
 import { DatabaseService } from './database.service';
+import { MessagingService } from './messaging.service';
 
 import type {
   AdminModuleAsyncOptions,
@@ -19,8 +21,20 @@ import type {
 import type { AdminModuleOptions } from './types';
 
 @Module({
-  providers: [AdminService, DatabaseService],
-  exports: [AdminService, DatabaseService],
+  providers: [
+    AdminService,
+    DatabaseService,
+    MessagingService,
+    {
+      provide: ADMIN_MODULE_ID,
+      useValue: randomStringGenerator(),
+    },
+  ],
+  exports: [
+    AdminService,
+    DatabaseService,
+    MessagingService,
+  ],
 })
 export class AdminModule {
   static register(options: AdminModuleOptions): DynamicModule {
@@ -32,12 +46,15 @@ export class AdminModule {
     return {
       module: AdminModule,
       providers: [
+        AdminService,
+        DatabaseService,
+        MessagingService,
         {
           provide: FIREBASE_ADMIN_INSTANCE_TOKEN,
           useValue: options,
         },
         {
-          provide: 'FIREBASE_ADMIN_APP',
+          provide: FIREBASE_ADMIN_APP,
           useValue: firebaseApp,
         },
         {
@@ -45,11 +62,26 @@ export class AdminModule {
           useValue: randomStringGenerator(),
         },
       ],
+      exports: [
+        AdminService,
+        DatabaseService,
+        MessagingService,
+        FIREBASE_ADMIN_INSTANCE_TOKEN,
+        FIREBASE_ADMIN_APP,
+      ],
     };
   }
 
   static registerAsync(options: AdminModuleAsyncOptions): DynamicModule {
-    const providers: Provider[] = [];
+    const providers: Provider[] = [
+      AdminService,
+      DatabaseService,
+      MessagingService,
+      {
+        provide: ADMIN_MODULE_ID,
+        useValue: randomStringGenerator(),
+      },
+    ];
 
     if (options.useFactory) {
       const factory = options.useFactory;
@@ -59,7 +91,7 @@ export class AdminModule {
         inject: options.inject || [],
       });
       providers.push({
-        provide: 'FIREBASE_ADMIN_APP',
+        provide: FIREBASE_ADMIN_APP,
         useFactory: async (...args: any[]) => {
           const config = await factory(...args);
           return Admin.initializeApp({
@@ -79,7 +111,7 @@ export class AdminModule {
         inject: [options.useExisting],
       });
       providers.push({
-        provide: 'FIREBASE_ADMIN_APP',
+        provide: FIREBASE_ADMIN_APP,
         useFactory: async (optionsFactory: AdminModuleOptionsFactory) => {
           const config = await optionsFactory.createAdminOptions();
           return Admin.initializeApp({
@@ -103,7 +135,7 @@ export class AdminModule {
         inject: [options.useClass],
       });
       providers.push({
-        provide: 'FIREBASE_ADMIN_APP',
+        provide: FIREBASE_ADMIN_APP,
         useFactory: async (optionsFactory: AdminModuleOptionsFactory) => {
           const config = await optionsFactory.createAdminOptions();
           return Admin.initializeApp({
@@ -123,7 +155,13 @@ export class AdminModule {
       module: AdminModule,
       imports: options.imports,
       providers,
-      exports: [AdminService],
+      exports: [
+        AdminService,
+        DatabaseService,
+        MessagingService,
+        FIREBASE_ADMIN_INSTANCE_TOKEN,
+        FIREBASE_ADMIN_APP,
+      ],
     };
   }
 }
