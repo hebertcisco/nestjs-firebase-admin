@@ -30,11 +30,7 @@ import type { AdminModuleOptions } from './types';
       useValue: randomStringGenerator(),
     },
   ],
-  exports: [
-    AdminService,
-    DatabaseService,
-    MessagingService,
-  ],
+  exports: [AdminService, DatabaseService, MessagingService],
 })
 export class AdminModule {
   static register(options: AdminModuleOptions): DynamicModule {

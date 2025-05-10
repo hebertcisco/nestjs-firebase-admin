@@ -56,7 +56,9 @@ describe('AdminService', () => {
 
     const mockApp = { name: 'app-name', options: {} };
     (firebaseAdmin.initializeApp as jest.Mock).mockReturnValue(mockApp);
-    (firebaseAdmin.credential.cert as jest.Mock).mockReturnValue('mocked-credential');
+    (firebaseAdmin.credential.cert as jest.Mock).mockReturnValue(
+      'mocked-credential',
+    );
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -195,7 +197,7 @@ describe('AdminService', () => {
         const completeSpy = jest.fn();
 
         service.initializeAppObservable().subscribe({
-          next: () => { },
+          next: () => {},
           complete: () => {
             completeSpy();
             expect(completeSpy).toHaveBeenCalledTimes(1);
@@ -210,7 +212,7 @@ describe('AdminService', () => {
 
     it('must return a valid cleanup function when unsubscribing', () => {
       const observable = service.initializeAppObservable();
-      const subscription = observable.subscribe(() => { });
+      const subscription = observable.subscribe(() => {});
       expect(() => subscription.unsubscribe()).not.toThrow();
     });
   });
