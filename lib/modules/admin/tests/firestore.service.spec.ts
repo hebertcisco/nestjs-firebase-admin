@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { FirestoreService } from '../firestore.service';
 import { App } from 'firebase-admin/app';
 import { Firestore, CollectionReference, DocumentReference, DocumentData } from 'firebase-admin/firestore';
-import { FIREBASE_ADMIN_APP } from '../admin.constants';
+import { FIREBASE_ADMIN_APP, FIREBASE_ADMIN_INSTANCE_TOKEN } from '../admin.constants';
 
 interface AppWithFirestore extends App {
     firestore(): Firestore;
@@ -41,6 +41,19 @@ describe('FirestoreService', () => {
                 {
                     provide: FIREBASE_ADMIN_APP,
                     useValue: mockApp,
+                },
+                {
+                    provide: FIREBASE_ADMIN_INSTANCE_TOKEN,
+                    useValue: {
+                        credential: {
+                            projectId: 'test-project',
+                            clientEmail: 'test@example.com',
+                            privateKey: 'test-key',
+                        },
+                        databaseURL: 'https://test-project.firebaseio.com',
+                        storageBucket: 'test-project.appspot.com',
+                        projectId: 'test-project',
+                    },
                 },
             ],
         }).compile();
