@@ -15,9 +15,15 @@
         window.$docsify = {
             name: 'NestJS Firebase Admin',
             repo: 'hebertcisco/nestjs-firebase-admin',
-            loadSidebar: true,
             subMaxLevel: 3,
+            loadSidebar: 'docs/_sidebar.md',
+            auto2top: true,
+            subMaxLevel: 3,
+            maxLevel: 3,
+            themeColor: '#1E2830',
+            noCompileLinks: ['benchmarks/.*'],
             search: {
+                placeholder: 'Search documentation...',
                 maxAge: 86400000,
                 paths: 'auto',
                 placeholder: 'Search',
