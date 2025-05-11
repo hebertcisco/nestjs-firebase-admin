@@ -13,6 +13,7 @@ import { AdminService } from './services/admin.service';
 import { DatabaseService } from './services/database.service';
 import { MessagingService } from './services/messaging.service';
 import { FirestoreService } from './services/firestore.service';
+import { AuthService } from './services/auth.service';
 
 import type {
   AdminModuleAsyncOptions,
@@ -27,6 +28,7 @@ import type { AdminModuleOptions } from './types';
     DatabaseService,
     MessagingService,
     FirestoreService,
+    AuthService,
     {
       provide: ADMIN_MODULE_ID,
       useValue: randomStringGenerator(),
@@ -37,6 +39,7 @@ import type { AdminModuleOptions } from './types';
     DatabaseService,
     MessagingService,
     FirestoreService,
+    AuthService,
   ],
 })
 export class AdminModule {
@@ -49,10 +52,15 @@ export class AdminModule {
     return {
       module: AdminModule,
       providers: [
+        {
+          provide: ADMIN_MODULE_OPTIONS,
+          useValue: options,
+        },
         AdminService,
         DatabaseService,
         MessagingService,
         FirestoreService,
+        AuthService,
         {
           provide: FIREBASE_ADMIN_INSTANCE_TOKEN,
           useValue: options,
@@ -71,6 +79,7 @@ export class AdminModule {
         DatabaseService,
         MessagingService,
         FirestoreService,
+        AuthService,
         FIREBASE_ADMIN_INSTANCE_TOKEN,
         FIREBASE_ADMIN_APP,
       ],
@@ -78,11 +87,21 @@ export class AdminModule {
   }
 
   static registerAsync(options: AdminModuleAsyncOptions): DynamicModule {
+    if (!options.useFactory) {
+      throw new Error('useFactory is required in registerAsync options');
+    }
+
     const providers: Provider[] = [
+      {
+        provide: ADMIN_MODULE_OPTIONS,
+        useFactory: options.useFactory,
+        inject: options.inject || [],
+      },
       AdminService,
       DatabaseService,
       MessagingService,
       FirestoreService,
+      AuthService,
       {
         provide: ADMIN_MODULE_ID,
         useValue: randomStringGenerator(),
@@ -159,13 +178,14 @@ export class AdminModule {
 
     return {
       module: AdminModule,
-      imports: options.imports,
+      imports: options.imports || [],
       providers,
       exports: [
         AdminService,
         DatabaseService,
         MessagingService,
         FirestoreService,
+        AuthService,
         FIREBASE_ADMIN_INSTANCE_TOKEN,
         FIREBASE_ADMIN_APP,
       ],
