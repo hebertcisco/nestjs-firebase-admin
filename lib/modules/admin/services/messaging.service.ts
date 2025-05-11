@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { FIREBASE_ADMIN_APP } from './admin.constants';
+import { FIREBASE_ADMIN_APP } from '../constants/admin.constants';
 import { App } from 'firebase-admin/app';
 import { Messaging, Message, MulticastMessage, TopicMessage } from 'firebase-admin/messaging';
 

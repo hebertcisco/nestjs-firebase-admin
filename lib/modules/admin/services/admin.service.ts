@@ -13,8 +13,8 @@ import Admin from 'firebase-admin';
 import type { App } from 'firebase-admin/app';
 import type { Agent } from 'node:http';
 
-import { FIREBASE_ADMIN_INSTANCE_TOKEN } from './admin.constants';
-import type { AdminModuleOptions } from './types';
+import { FIREBASE_ADMIN_INSTANCE_TOKEN } from '../constants/admin.constants';
+import type { AdminModuleOptions } from '../types';
 
 /**
  * Service for managing Firebase Admin SDK instances and configurations.

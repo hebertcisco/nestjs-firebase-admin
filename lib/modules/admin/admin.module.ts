@@ -7,12 +7,12 @@ import {
   ADMIN_MODULE_OPTIONS,
   FIREBASE_ADMIN_INSTANCE_TOKEN,
   FIREBASE_ADMIN_APP,
-} from './admin.constants';
+} from './constants/admin.constants';
 
-import { AdminService } from './admin.service';
-import { DatabaseService } from './database.service';
-import { MessagingService } from './messaging.service';
-import { FirestoreService } from './firestore.service';
+import { AdminService } from './services/admin.service';
+import { DatabaseService } from './services/database.service';
+import { MessagingService } from './services/messaging.service';
+import { FirestoreService } from './services/firestore.service';
 
 import type {
   AdminModuleAsyncOptions,

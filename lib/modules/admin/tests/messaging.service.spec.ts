@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { MessagingService } from '../messaging.service';
+import { MessagingService } from '../services/messaging.service';
 import { App } from 'firebase-admin/app';
 import { Messaging, Message, MulticastMessage, TopicMessage } from 'firebase-admin/messaging';
-import { FIREBASE_ADMIN_APP } from '../admin.constants';
+import { FIREBASE_ADMIN_APP } from '../constants/admin.constants';
 
 /**
  * Extended App type that includes messaging functionality

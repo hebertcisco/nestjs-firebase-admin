@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { getFirestore, Firestore, CollectionReference, DocumentReference, Query, DocumentData, SetOptions, UpdateData, WithFieldValue } from 'firebase-admin/firestore';
-import { FIREBASE_ADMIN_INSTANCE_TOKEN } from './admin.constants';
-import type { AdminModuleOptions } from './types';
+import { FIREBASE_ADMIN_INSTANCE_TOKEN } from '../constants/admin.constants';
+import type { AdminModuleOptions } from '../types';
 import { App } from 'firebase-admin/app';
 
 /**

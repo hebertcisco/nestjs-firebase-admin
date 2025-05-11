@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { getDatabase } from 'firebase-admin/database';
 import { Database } from 'firebase-admin/database';
-import { FIREBASE_ADMIN_INSTANCE_TOKEN } from './admin.constants';
-import type { AdminModuleOptions } from './types';
+import { FIREBASE_ADMIN_INSTANCE_TOKEN } from '../constants/admin.constants';
+import type { AdminModuleOptions } from '../types';
 import Admin from 'firebase-admin';
 import { App } from 'firebase-admin/app';
 
