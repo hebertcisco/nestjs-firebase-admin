@@ -7,6 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+    <link rel="icon" type="image/png"
+        href="https://raw.githubusercontent.com/hebertcisco/nestjs-firebase-admin/refs/heads/main/art/logo.png" />
+    <meta name="description"
+        content="NestJS Firebase Admin is a NestJS module that provides a simple and efficient way to integrate Firebase Admin SDK into your NestJS applications.">
+    <meta name="keywords" content="NestJS, Firebase, Admin SDK, Module, Integration">
+    <meta name="author" content="Hebert Cisco">
+    <meta name="theme-color" content="#1E2830">
 </head>
 
 <body>
@@ -35,7 +42,14 @@
                 nextText: 'Next',
                 crossChapter: true,
                 crossChapterText: true
-            }
+            },
+            plugins: [
+                function (hook, vm) {
+                    hook.beforeEach(function (content) {
+                        return content + '\n\n---\n\nLast updated: {docsify-updated}';
+                    });
+                }
+            ]
         }
     </script>
     <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
