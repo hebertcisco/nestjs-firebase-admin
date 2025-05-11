@@ -5,7 +5,6 @@ import {
   Firestore,
   CollectionReference,
   DocumentReference,
-  DocumentData,
 } from 'firebase-admin/firestore';
 import {
   FIREBASE_ADMIN_APP,
@@ -46,7 +45,7 @@ describe('FirestoreService', () => {
     } as unknown as AppWithFirestore;
 
     jest
-      .spyOn(require('firebase-admin/firestore'), 'getFirestore')
+      .spyOn(await import('firebase-admin/firestore'), 'getFirestore')
       .mockReturnValue(mockFirestore);
 
     const module: TestingModule = await Test.createTestingModule({
