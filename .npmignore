@@ -12,9 +12,6 @@ tsconfig.json
 CONTRIBUTING.md
 renovate.json
 
-# ci
-.circleci
-
 examples
 tests
 *tests*

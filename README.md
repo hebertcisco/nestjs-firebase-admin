@@ -6,9 +6,6 @@
   <a href="https://codecov.io/gh/hebertcisco/nestjs-firebase-admin">
     <img src="https://codecov.io/gh/hebertcisco/nestjs-firebase-admin/branch/main/graph/badge.svg?token=N0IW1UNNIP" alt="codecov">
   </a>
-  <a href="https://dl.circleci.com/status-badge/redirect/gh/hebertcisco/nestjs-firebase-admin/tree/main">
-    <img src="https://dl.circleci.com/status-badge/img/gh/hebertcisco/nestjs-firebase-admin/tree/main.svg?style=svg" alt="CircleCI">
-  </a>
   <a href="https://github.com/hebertcisco/nestjs-firebase-admin/actions/workflows/npm-publish.yml">
     <img src="https://github.com/hebertcisco/nestjs-firebase-admin/actions/workflows/npm-publish.yml/badge.svg" alt="Node.js build and publish package">
   </a>

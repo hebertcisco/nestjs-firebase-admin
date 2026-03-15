@@ -64,4 +64,4 @@ Mock implementations are provided for Firebase services to ensure tests do not m
 
 ## Continuous Integration
 
-Tests are automatically run in CI pipelines using GitHub Actions and CircleCI. Refer to the respective configuration files for more details.
+Tests are automatically run in CI pipelines using GitHub Actions. Refer to the respective configuration files for more details.
