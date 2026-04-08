@@ -49,7 +49,7 @@ describe('AdminModule', () => {
       });
       expect(Admin.credential.cert).toHaveBeenCalledWith(mockOptions.credential);
 
-      const providerTokens = result.providers.map((p: any) => p.provide || p);
+      const providerTokens = result.providers!.map((p: any) => p.provide || p);
       expect(providerTokens).toContain(ADMIN_MODULE_OPTIONS);
       expect(providerTokens).toContain(FIREBASE_ADMIN_INSTANCE_TOKEN);
       expect(providerTokens).toContain(FIREBASE_ADMIN_APP);
@@ -79,7 +79,7 @@ describe('AdminModule', () => {
       });
 
       expect(result.module).toBe(AdminModule);
-      const providerTokens = result.providers.map((p: any) => p.provide || p);
+      const providerTokens = result.providers!.map((p: any) => p.provide || p);
       expect(providerTokens).toContain(ADMIN_MODULE_OPTIONS);
       expect(providerTokens).toContain(FIREBASE_ADMIN_INSTANCE_TOKEN);
       expect(providerTokens).toContain(FIREBASE_ADMIN_APP);
@@ -92,7 +92,7 @@ describe('AdminModule', () => {
         useFactory: factory,
       });
 
-      const optionsProvider = result.providers.find(
+      const optionsProvider = result.providers!.find(
         (p: any) => p.provide === ADMIN_MODULE_OPTIONS,
       ) as any;
       expect(optionsProvider.inject).toEqual([]);
@@ -123,7 +123,7 @@ describe('AdminModule', () => {
         inject: [],
       });
 
-      const appProvider = result.providers.find(
+      const appProvider = result.providers!.find(
         (p: any) => p.provide === FIREBASE_ADMIN_APP,
       ) as any;
       expect(appProvider).toBeDefined();
