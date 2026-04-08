@@ -117,7 +117,9 @@
       "**/*.(t|j)s",
       "!**/*.spec.ts",
       "!**/tests/**",
-      "!**/mocks/**"
+      "!**/mocks/**",
+      "!**/interfaces/index.ts",
+      "!**/types/index.ts"
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
