@@ -2,7 +2,15 @@
   <img src="art/logo.png" alt="nestjs-firebase-admin logo" width="200">
 </p>
 
+<h1 align="center">nestjs-firebase-admin</h1>
+
 <p align="center">
+  Firebase Admin SDK module for <a href="https://nestjs.com/">NestJS</a> — injectable services for Auth, Firestore, Realtime Database, and Cloud Messaging.
+</p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/nestjs-firebase-admin"><img src="https://img.shields.io/npm/v/nestjs-firebase-admin.svg" alt="npm version"></a>
+  <a href="https://www.npmjs.com/package/nestjs-firebase-admin"><img src="https://img.shields.io/npm/dm/nestjs-firebase-admin.svg" alt="npm downloads"></a>
   <a href="https://codecov.io/gh/hebertcisco/nestjs-firebase-admin">
     <img src="https://codecov.io/gh/hebertcisco/nestjs-firebase-admin/branch/main/graph/badge.svg?token=N0IW1UNNIP" alt="codecov">
   </a>
@@ -12,84 +20,139 @@
   <a href="https://github.com/hebertcisco/nestjs-firebase-admin/actions/workflows/coverage.yml">
     <img src="https://github.com/hebertcisco/nestjs-firebase-admin/actions/workflows/coverage.yml/badge.svg" alt="Running Code Coverage">
   </a>
-  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white" alt="TypeScript">
-  <img src="https://img.shields.io/badge/Nestjs-ea2845?style=flat&logo=nestjs&logoColor=white" alt="Nestjs">
-  <img src="https://img.shields.io/badge/VS_Code-0078D4?style=flat&logo=visual%20studio%20code&logoColor=white" alt="VS Code">
-  <img src="https://img.shields.io/badge/github%20actions-%232671E5.svg?style=flat&logo=githubactions&logoColor=white" alt="GitHub Actions">
 </p>
 
-> Firebase Admin SDK for NestJS :fire:
+## Features
 
-## Requirements
-
-- **Node.js**: >= 20
-- **NPM**: >= 10
-- **NestJS**: >= 7.0.0
+- **AdminService** — Firebase app initialization and lifecycle management
+- **AuthService** — Create, update, delete users; verify ID tokens; manage custom claims
+- **FirestoreService** — Typed CRUD, collection queries, batch writes, transactions
+- **DatabaseService** — Realtime Database read, write, push, update, remove, and listeners
+- **MessagingService** — Send to device tokens, topics, and conditions; manage subscriptions
+- Sync (`register`) and async (`registerAsync`) module registration
+- Compatible with **NestJS 7 – 11** and **Firebase Admin 13+**
+- TypeScript-first with full type support
 
 ## Installation
 
-Install the package using `yarn`, `npm`, or `pnpm`:
+```bash
+npm i nestjs-firebase-admin --save
+```
+
+<details>
+<summary>yarn / pnpm</summary>
 
 ```bash
-# yarn
 yarn add nestjs-firebase-admin
 ```
 
 ```bash
-# npm
-npm i nestjs-firebase-admin --save
+pnpm add nestjs-firebase-admin
 ```
 
-```bash
-# pnpm
-pnpm add nestjs-firebase-admin --save
+</details>
+
+## Quick start
+
+Import `AdminModule` in your root or feature module:
+
+```ts
+import { Module } from '@nestjs/common';
+import { AdminModule } from 'nestjs-firebase-admin';
+
+@Module({
+  imports: [
+    AdminModule.register({
+      credential: {
+        projectId: 'my-project-id',
+        clientEmail: 'my-client-email',
+        privateKey: 'my-private-key',
+      },
+      databaseURL: 'https://my-project-id.firebaseio.com',
+    }),
+  ],
+})
+export class AppModule {}
 ```
 
-## Testing
+### Async configuration
 
-To run tests, use the following commands:
+Use `registerAsync` to load credentials from `ConfigService` or any other provider:
 
-### Unit Tests
+```ts
+import { Module } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { AdminModule } from 'nestjs-firebase-admin';
 
-```bash
-npm test
+@Module({
+  imports: [
+    AdminModule.registerAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        credential: {
+          projectId: config.get('FIREBASE_PROJECT_ID'),
+          clientEmail: config.get('FIREBASE_CLIENT_EMAIL'),
+          privateKey: config.get('FIREBASE_PRIVATE_KEY'),
+        },
+        databaseURL: config.get('FIREBASE_DATABASE_URL'),
+      }),
+    }),
+  ],
+})
+export class AppModule {}
 ```
 
-### Coverage Tests
+## Usage examples
 
-```bash
-npm run test:cov
+Once `AdminModule` is imported, inject any service:
+
+```ts
+import { Injectable } from '@nestjs/common';
+import { AuthService, FirestoreService } from 'nestjs-firebase-admin';
+
+@Injectable()
+export class UsersService {
+  constructor(
+    private readonly auth: AuthService,
+    private readonly firestore: FirestoreService,
+  ) {}
+
+  async createUser(email: string, password: string) {
+    const user = await this.auth.createUser({ email, password });
+    await this.firestore.set(`users/${user.uid}`, { email, createdAt: new Date() });
+    return user;
+  }
+
+  async getUser(uid: string) {
+    return this.firestore.get(`users/${uid}`);
+  }
+}
 ```
 
-### Watch Mode Tests
+## Requirements
 
-```bash
-npm run test:watch
-```
+| Dependency | Version |
+|-----------|---------|
+| Node.js | >= 20 |
+| NestJS | >= 7.0.0 |
+| firebase-admin | >= 13.0.0 |
 
-### Debug Tests
+## Documentation
 
-```bash
-npm run test:debug
-```
+Full documentation is available at **[hebertcisco.github.io/nestjs-firebase-admin](https://hebertcisco.github.io/nestjs-firebase-admin/)**.
 
-## Available Scripts
-
-The available scripts in `package.json` include:
-
-- **Build**: `npm run build`
-- **Lint**: `npm run lint`
-- **Format**: `npm run format`
-- **Release**: `npm run release`
+- [Getting Started](https://hebertcisco.github.io/nestjs-firebase-admin/#/docs/getting-started)
+- [Admin Service](https://hebertcisco.github.io/nestjs-firebase-admin/#/docs/services/admin-service)
+- [Auth Service](https://hebertcisco.github.io/nestjs-firebase-admin/#/docs/services/auth-service)
+- [Firestore Service](https://hebertcisco.github.io/nestjs-firebase-admin/#/docs/services/firestore-service)
+- [Database Service](https://hebertcisco.github.io/nestjs-firebase-admin/#/docs/services/database-service)
+- [Messaging Service](https://hebertcisco.github.io/nestjs-firebase-admin/#/docs/services/messaging-service)
+- [Testing](https://hebertcisco.github.io/nestjs-firebase-admin/#/docs/testing)
 
 ## Contributing
 
-Contributions, issues, and feature requests are welcome!<br />Feel free to check the [issues page](https://github.com/hebertcisco/nestjs-firebase-admin/issues).
+Contributions, issues, and feature requests are welcome! Check the [issues page](https://github.com/hebertcisco/nestjs-firebase-admin/issues) or read the [contributing guide](https://hebertcisco.github.io/nestjs-firebase-admin/#/docs/contributing).
 
-## Show Your Support
+## License
 
-Give a ⭐️ if this project helped you!
-
-## 📝 License
-
-This project is under the [MIT](LICENSE) license.
+[MIT](LICENSE)
