@@ -22,13 +22,12 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Run the tests
         run: npm test -- --coverage
+
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
