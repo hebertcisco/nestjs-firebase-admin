@@ -120,7 +120,7 @@
       "!**/mocks/**",
       "!**/interfaces/index.ts",
       "!**/types/index.ts",
-      "!lib/index.ts"
+      "!index.ts"
     ],
     "coverageDirectory": "../coverage",
     "coverageThreshold": {
