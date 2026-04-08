@@ -5,8 +5,10 @@ export interface AdminModuleOptionsFactory {
   createAdminOptions(): Promise<AdminModuleOptions> | AdminModuleOptions;
 }
 
-export interface AdminModuleAsyncOptions
-  extends Pick<ModuleMetadata, 'imports'> {
+export interface AdminModuleAsyncOptions extends Pick<
+  ModuleMetadata,
+  'imports'
+> {
   useExisting?: Type<AdminModuleOptionsFactory>;
   useClass?: Type<AdminModuleOptionsFactory>;
   useFactory?: (
