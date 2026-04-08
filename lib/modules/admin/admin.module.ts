@@ -87,16 +87,13 @@ export class AdminModule {
   }
 
   static registerAsync(options: AdminModuleAsyncOptions): DynamicModule {
-    if (!options.useFactory) {
-      throw new Error('useFactory is required in registerAsync options');
+    if (!options.useFactory && !options.useExisting && !options.useClass) {
+      throw new Error(
+        'One of useFactory, useExisting, or useClass must be provided in AdminModuleAsyncOptions',
+      );
     }
 
     const providers: Provider[] = [
-      {
-        provide: ADMIN_MODULE_OPTIONS,
-        useFactory: options.useFactory,
-        inject: options.inject || [],
-      },
       AdminService,
       DatabaseService,
       MessagingService,
@@ -109,6 +106,11 @@ export class AdminModule {
     ];
 
     if (options.useFactory) {
+      providers.push({
+        provide: ADMIN_MODULE_OPTIONS,
+        useFactory: options.useFactory,
+        inject: options.inject || [],
+      });
       const factory = options.useFactory;
       providers.push({
         provide: FIREBASE_ADMIN_INSTANCE_TOKEN,
