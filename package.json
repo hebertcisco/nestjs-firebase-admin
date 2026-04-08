@@ -33,8 +33,6 @@
     "prepublish:next": "npm run build",
     "publish:next": "npm publish --access public --tag next",
     "test:e2e": "npx jest --config ./tests/jest-e2e.json --runInBand",
-    "prerelease": "npm run build",
-    "release": "release-it",
     "prepare": "npm run build",
     "test": "npx jest",
     "test:watch": "npx jest --watch",
@@ -79,17 +77,6 @@
     "@nestjs/common": "^7.0.0 || ^8.0.0 || ^9.2.1 || ^10.2.1 || ^11.0.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^6.0.0 || ^7.0.0"
-  },
-  "lint-staged": {
-    "*.ts": [
-      "prettier --write"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -c .commitlintrc.json -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged"
-    }
   },
   "repository": {
     "type": "git",
