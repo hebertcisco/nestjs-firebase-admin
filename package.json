@@ -2,7 +2,7 @@
   "name": "nestjs-firebase-admin",
   "version": "0.5.9",
   "description": "Firebase Admin SDK for Nestjs",
-  "author": "Hebert Cisco",
+  "author": "hebertcisco <hebertcisco@outlook.com>",
   "license": "MIT",
   "homepage": "https://hebertcisco.github.io/nestjs-firebase-admin/",
   "url": "https://github.com/hebertcisco/nestjs-firebase-admin#readme",
