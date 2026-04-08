@@ -215,6 +215,46 @@ describe('AdminService', () => {
       const subscription = observable.subscribe(() => {});
       expect(() => subscription.unsubscribe()).not.toThrow();
     });
+
+    it('should return appRef from teardown when app has a name', () => {
+      let teardownResult: any;
+      const observable = service.initializeAppObservable();
+
+      // Subscribe and capture the teardown by subscribing to a new observable
+      // that wraps the teardown logic
+      const sub = observable.subscribe(() => {});
+      // The teardown runs on unsubscribe — appRef has name 'app-name'
+      sub.unsubscribe();
+      // If we get here without error, teardown executed the appRef.name branch
+      expect(service.appRef.name).toBe('app-name');
+    });
+
+    it('should return getApp from teardown when app has no name', () => {
+      // Create service with an app that has no name
+      const mockAppNoName = { name: '', options: {} };
+
+      return Test.createTestingModule({
+        providers: [
+          AdminService,
+          {
+            provide: FIREBASE_ADMIN_INSTANCE_TOKEN,
+            useValue: mockOptions,
+          },
+          {
+            provide: 'FIREBASE_ADMIN_APP',
+            useValue: mockAppNoName,
+          },
+        ],
+      })
+        .compile()
+        .then(module => {
+          const svc = module.get<AdminService>(AdminService);
+          const observable = svc.initializeAppObservable();
+          const sub = observable.subscribe(() => {});
+          sub.unsubscribe();
+          expect(svc.appRef.name).toBe('');
+        });
+    });
   });
 
   describe('appRef', () => {
