@@ -70,7 +70,7 @@ export class MessagingService {
       ...payload,
     } as MulticastMessage;
 
-    const response = await this.messaging.sendEachForMulticast(message);
+    const response = await this.messaging.sendMulticast(message);
     return response;
   }
 

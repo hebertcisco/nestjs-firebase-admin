@@ -21,7 +21,7 @@ jest.mock('firebase-admin/messaging', () => {
   return {
     Messaging: jest.fn().mockImplementation(() => ({
       send: jest.fn().mockResolvedValue('message-id'),
-      sendEachForMulticast: jest.fn().mockResolvedValue({
+      sendMulticast: jest.fn().mockResolvedValue({
         successCount: 1,
         failureCount: 0,
         responses: [{ messageId: 'message-id' }],
@@ -48,7 +48,7 @@ describe('MessagingService', () => {
     const mockApp = {
       messaging: jest.fn().mockReturnValue({
         send: jest.fn().mockResolvedValue('message-id'),
-        sendEachForMulticast: jest.fn().mockResolvedValue({
+        sendMulticast: jest.fn().mockResolvedValue({
           successCount: 1,
           failureCount: 0,
           responses: [{ messageId: 'message-id' }],
@@ -119,7 +119,7 @@ describe('MessagingService', () => {
         failureCount: 0,
         responses: [{ messageId: 'message-id' }],
       });
-      expect(mockMessaging.sendEachForMulticast).toHaveBeenCalledWith({
+      expect(mockMessaging.sendMulticast).toHaveBeenCalledWith({
         tokens,
         ...payload,
       } as MulticastMessage);
