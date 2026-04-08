@@ -130,11 +130,15 @@ export class AdminModule {
       });
     } else if (options.useExisting) {
       providers.push({
+        provide: ADMIN_MODULE_OPTIONS,
+        useFactory: async (optionsFactory: AdminModuleOptionsFactory) =>
+          optionsFactory.createAdminOptions(),
+        inject: [options.useExisting],
+      });
+      providers.push({
         provide: FIREBASE_ADMIN_INSTANCE_TOKEN,
-        useFactory: async (optionsFactory: AdminModuleOptionsFactory) => {
-          const config = await optionsFactory.createAdminOptions();
-          return config;
-        },
+        useFactory: async (optionsFactory: AdminModuleOptionsFactory) =>
+          optionsFactory.createAdminOptions(),
         inject: [options.useExisting],
       });
       providers.push({
@@ -154,11 +158,15 @@ export class AdminModule {
         useClass: options.useClass,
       });
       providers.push({
+        provide: ADMIN_MODULE_OPTIONS,
+        useFactory: async (optionsFactory: AdminModuleOptionsFactory) =>
+          optionsFactory.createAdminOptions(),
+        inject: [options.useClass],
+      });
+      providers.push({
         provide: FIREBASE_ADMIN_INSTANCE_TOKEN,
-        useFactory: async (optionsFactory: AdminModuleOptionsFactory) => {
-          const config = await optionsFactory.createAdminOptions();
-          return config;
-        },
+        useFactory: async (optionsFactory: AdminModuleOptionsFactory) =>
+          optionsFactory.createAdminOptions(),
         inject: [options.useClass],
       });
       providers.push({
@@ -172,10 +180,6 @@ export class AdminModule {
         },
         inject: [options.useClass],
       });
-    } else {
-      throw new Error(
-        'One of useFactory, useExisting, or useClass must be provided in AdminModuleAsyncOptions',
-      );
     }
 
     return {
