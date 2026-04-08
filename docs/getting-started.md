@@ -55,23 +55,33 @@ If you need asynchronous configuration, use the `registerAsync` method:
 
 ```ts
 import { Module } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { AdminModule } from 'nestjs-firebase-admin';
 
 @Module({
   imports: [
     AdminModule.registerAsync({
-      useFactory: async () => ({
+      inject: [ConfigService],
+      useFactory: async (config: ConfigService) => ({
         credential: {
-          projectId: 'my-project-id',
-          clientEmail: 'my-client-email',
-          privateKey: 'my-private-key',
+          projectId: config.get('FIREBASE_PROJECT_ID'),
+          clientEmail: config.get('FIREBASE_CLIENT_EMAIL'),
+          privateKey: config.get('FIREBASE_PRIVATE_KEY'),
         },
-        databaseURL: 'https://my-project-id.firebaseio.com',
+        databaseURL: config.get('FIREBASE_DATABASE_URL'),
       }),
     }),
   ],
 })
 export class AppModule {}
+```
+
+You can also use `useClass` or `useExisting` for more advanced scenarios:
+
+```ts
+AdminModule.registerAsync({
+  useClass: FirebaseConfigService,
+})
 ```
 
 ## Next Steps
