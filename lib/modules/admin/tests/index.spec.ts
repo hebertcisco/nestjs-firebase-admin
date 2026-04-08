@@ -23,6 +23,10 @@ describe('Barrel exports', () => {
     it('should export FirestoreService', () => {
       expect(rootExports.FirestoreService).toBeDefined();
     });
+
+    it('should export AuthService', () => {
+      expect(rootExports.AuthService).toBeDefined();
+    });
   });
 
   describe('interfaces/index.ts', () => {
