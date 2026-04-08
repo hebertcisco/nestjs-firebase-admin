@@ -119,10 +119,11 @@
       "!**/tests/**",
       "!**/mocks/**",
       "!**/interfaces/index.ts",
-      "!**/types/index.ts"
+      "!**/types/index.ts",
+      "!lib/index.ts"
     ],
     "coverageDirectory": "../coverage",
-    "coverageThresholds": {
+    "coverageThreshold": {
       "global": {
         "statements": 85,
         "branches": 65,
