@@ -133,4 +133,25 @@ describe('FirestoreService', () => {
     expect(docs).toEqual([{ foo: 'bar' }]);
     expect(mockCollection.get).toHaveBeenCalled();
   });
+
+  it('should query a collection with constraints', async () => {
+    const constraint = jest.fn().mockReturnValue(mockCollection);
+    const docs = await service.query('test', constraint);
+    expect(constraint).toHaveBeenCalled();
+    expect(docs).toEqual([{ foo: 'bar' }]);
+  });
+
+  it('should return null when document does not exist', async () => {
+    mockDoc.get = jest
+      .fn()
+      .mockResolvedValue({ exists: false, data: () => undefined });
+    const data = await service.get('test/missing');
+    expect(data).toBeNull();
+  });
+
+  it('should throw when update data is not a valid object', async () => {
+    await expect(service.update('test/doc', null as any)).rejects.toThrow(
+      'Update data must be a non-null object',
+    );
+  });
 });
