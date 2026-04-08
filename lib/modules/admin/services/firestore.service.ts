@@ -7,6 +7,7 @@ import {
   Query,
   DocumentData,
   SetOptions,
+  WithFieldValue,
 } from 'firebase-admin/firestore';
 import { FIREBASE_ADMIN_INSTANCE_TOKEN } from '../constants/admin.constants';
 import type { AdminModuleOptions } from '../types';
@@ -68,7 +69,7 @@ export class FirestoreService {
    */
   async set<T = DocumentData>(
     path: string,
-    data: T,
+    data: WithFieldValue<T>,
     options?: SetOptions,
   ): Promise<void> {
     if (options) {
@@ -109,7 +110,7 @@ export class FirestoreService {
    */
   async add<T = DocumentData>(
     collectionPath: string,
-    data: T,
+    data: WithFieldValue<T>,
   ): Promise<DocumentReference<T>> {
     return await this.collection<T>(collectionPath).add(data);
   }
