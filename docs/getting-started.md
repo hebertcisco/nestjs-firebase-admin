@@ -77,6 +77,7 @@ export class AppModule {}
 ## Next Steps
 
 - Learn about the [Admin Service](services/admin-service.md)
+- Manage users with the [Auth Service](services/auth-service.md)
 - Explore the [Database Service](services/database-service.md)
 - Check out the [Firestore Service](services/firestore-service.md)
 - Discover the [Messaging Service](services/messaging-service.md)

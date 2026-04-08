@@ -56,6 +56,9 @@ export class FirebaseService {
 | `deleteApp(app)` | Deletes a Firebase app instance | [Delete App](https://firebase.google.com/docs/reference/admin/node/firebase-admin.app#deleteapp) |
 | `applicationDefault(httpAgent?)` | Gets default credentials | [Application Default](https://firebase.google.com/docs/reference/admin/node/firebase-admin.credential#applicationdefault) |
 | `admin()` | Gets the Firebase Admin SDK instance | [Admin SDK](https://firebase.google.com/docs/admin/setup) |
+| `appRef` | Gets the initialized app instance reference | [Initialize App](https://firebase.google.com/docs/reference/admin/node/firebase-admin.app#initializeapp) |
+| `initializeApp()` | Returns the initialized app instance | [Initialize App](https://firebase.google.com/docs/reference/admin/node/firebase-admin.app#initializeapp) |
+| `initializeAppObservable()` | Creates an Observable that emits the app instance | [Initialize App](https://firebase.google.com/docs/reference/admin/node/firebase-admin.app#initializeapp) |
 
 ## Configuration
 
