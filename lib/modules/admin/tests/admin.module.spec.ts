@@ -15,7 +15,9 @@ import { AuthService } from '../services/auth.service';
 jest.mock('firebase-admin', () => ({
   __esModule: true,
   default: {
-    initializeApp: jest.fn().mockReturnValue({ name: '[DEFAULT]', options: {} }),
+    initializeApp: jest
+      .fn()
+      .mockReturnValue({ name: '[DEFAULT]', options: {} }),
     credential: {
       cert: jest.fn().mockReturnValue('mocked-credential'),
     },
@@ -47,7 +49,9 @@ describe('AdminModule', () => {
         ...mockOptions,
         credential: 'mocked-credential',
       });
-      expect(Admin.credential.cert).toHaveBeenCalledWith(mockOptions.credential);
+      expect(Admin.credential.cert).toHaveBeenCalledWith(
+        mockOptions.credential,
+      );
 
       const providerTokens = result.providers!.map((p: any) => p.provide || p);
       expect(providerTokens).toContain(ADMIN_MODULE_OPTIONS);
@@ -132,13 +136,15 @@ describe('AdminModule', () => {
       // Call the factory to verify it calls Admin.initializeApp
       await appProvider.useFactory();
       expect(Admin.initializeApp).toHaveBeenCalled();
-      expect(Admin.credential.cert).toHaveBeenCalledWith(mockOptions.credential);
+      expect(Admin.credential.cert).toHaveBeenCalledWith(
+        mockOptions.credential,
+      );
     });
 
     it('should throw when no option strategy is provided', () => {
-      expect(() =>
-        AdminModule.registerAsync({} as any),
-      ).toThrow('One of useFactory, useExisting, or useClass must be provided');
+      expect(() => AdminModule.registerAsync({} as any)).toThrow(
+        'One of useFactory, useExisting, or useClass must be provided',
+      );
     });
 
     it('should create a DynamicModule with useExisting', () => {
