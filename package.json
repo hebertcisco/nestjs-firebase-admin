@@ -122,6 +122,14 @@
       "!**/types/index.ts"
     ],
     "coverageDirectory": "../coverage",
+    "coverageThresholds": {
+      "global": {
+        "statements": 85,
+        "branches": 65,
+        "functions": 90,
+        "lines": 95
+      }
+    },
     "testEnvironment": "node"
   }
 }
