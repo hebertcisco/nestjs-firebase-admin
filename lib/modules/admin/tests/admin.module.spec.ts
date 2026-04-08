@@ -135,10 +135,107 @@ describe('AdminModule', () => {
       expect(Admin.credential.cert).toHaveBeenCalledWith(mockOptions.credential);
     });
 
-    it('should throw when useFactory is not provided', () => {
+    it('should throw when no option strategy is provided', () => {
       expect(() =>
         AdminModule.registerAsync({} as any),
-      ).toThrow('useFactory is required in registerAsync options');
+      ).toThrow('One of useFactory, useExisting, or useClass must be provided');
+    });
+
+    it('should create a DynamicModule with useExisting', () => {
+      class TestFactory {
+        createAdminOptions() {
+          return mockOptions;
+        }
+      }
+      const result = AdminModule.registerAsync({
+        useExisting: TestFactory as any,
+      });
+
+      expect(result.module).toBe(AdminModule);
+      const providerTokens = result.providers!.map((p: any) => p.provide || p);
+      expect(providerTokens).toContain(ADMIN_MODULE_OPTIONS);
+      expect(providerTokens).toContain(FIREBASE_ADMIN_INSTANCE_TOKEN);
+      expect(providerTokens).toContain(FIREBASE_ADMIN_APP);
+    });
+
+    it('should call createAdminOptions via useExisting factory providers', async () => {
+      class TestFactory {
+        createAdminOptions() {
+          return mockOptions;
+        }
+      }
+      const result = AdminModule.registerAsync({
+        useExisting: TestFactory as any,
+      });
+
+      const factoryInstance = new TestFactory();
+
+      const optionsProvider = result.providers!.find(
+        (p: any) => p.provide === ADMIN_MODULE_OPTIONS,
+      ) as any;
+      const config = await optionsProvider.useFactory(factoryInstance);
+      expect(config).toEqual(mockOptions);
+
+      const tokenProvider = result.providers!.find(
+        (p: any) => p.provide === FIREBASE_ADMIN_INSTANCE_TOKEN,
+      ) as any;
+      const tokenConfig = await tokenProvider.useFactory(factoryInstance);
+      expect(tokenConfig).toEqual(mockOptions);
+
+      const appProvider = result.providers!.find(
+        (p: any) => p.provide === FIREBASE_ADMIN_APP,
+      ) as any;
+      await appProvider.useFactory(factoryInstance);
+      expect(Admin.initializeApp).toHaveBeenCalled();
+    });
+
+    it('should create a DynamicModule with useClass', () => {
+      class TestFactory {
+        createAdminOptions() {
+          return mockOptions;
+        }
+      }
+      const result = AdminModule.registerAsync({
+        useClass: TestFactory as any,
+      });
+
+      expect(result.module).toBe(AdminModule);
+      const providerTokens = result.providers!.map((p: any) => p.provide || p);
+      expect(providerTokens).toContain(TestFactory);
+      expect(providerTokens).toContain(ADMIN_MODULE_OPTIONS);
+      expect(providerTokens).toContain(FIREBASE_ADMIN_INSTANCE_TOKEN);
+      expect(providerTokens).toContain(FIREBASE_ADMIN_APP);
+    });
+
+    it('should call createAdminOptions via useClass factory providers', async () => {
+      class TestFactory {
+        createAdminOptions() {
+          return mockOptions;
+        }
+      }
+      const result = AdminModule.registerAsync({
+        useClass: TestFactory as any,
+      });
+
+      const factoryInstance = new TestFactory();
+
+      const optionsProvider = result.providers!.find(
+        (p: any) => p.provide === ADMIN_MODULE_OPTIONS,
+      ) as any;
+      const config = await optionsProvider.useFactory(factoryInstance);
+      expect(config).toEqual(mockOptions);
+
+      const tokenProvider = result.providers!.find(
+        (p: any) => p.provide === FIREBASE_ADMIN_INSTANCE_TOKEN,
+      ) as any;
+      const tokenConfig = await tokenProvider.useFactory(factoryInstance);
+      expect(tokenConfig).toEqual(mockOptions);
+
+      const appProvider = result.providers!.find(
+        (p: any) => p.provide === FIREBASE_ADMIN_APP,
+      ) as any;
+      await appProvider.useFactory(factoryInstance);
+      expect(Admin.initializeApp).toHaveBeenCalled();
     });
 
     it('should export all services and tokens', () => {
