@@ -1,0 +1,68 @@
+# nestjs-firebase-admin
+
+> Firebase Admin SDK module for NestJS
+
+nestjs-firebase-admin is a NestJS module that wraps the Firebase Admin SDK into injectable, testable services. It supports NestJS 7-11 and Firebase Admin 13+.
+
+## Install
+
+```bash
+npm i nestjs-firebase-admin --save
+```
+
+## Quick start
+
+```ts
+import { Module } from '@nestjs/common';
+import { AdminModule } from 'nestjs-firebase-admin';
+
+@Module({
+  imports: [
+    AdminModule.register({
+      credential: {
+        projectId: 'my-project-id',
+        clientEmail: 'my-client-email',
+        privateKey: 'my-private-key',
+      },
+      databaseURL: 'https://my-project-id.firebaseio.com',
+    }),
+  ],
+})
+export class AppModule {}
+```
+
+Use `AdminModule.registerAsync()` with `useFactory`, `useClass`, or `useExisting` for dynamic configuration (e.g. from `ConfigService`).
+
+## Services
+
+After importing `AdminModule`, inject any of these services:
+
+- **AdminService** — Firebase app initialization, lifecycle management, credential access.
+- **AuthService** — User management: create, update, delete, verify ID tokens, manage custom claims.
+- **DatabaseService** — Firebase Realtime Database: read, write, push, update, remove, and listen to refs.
+- **FirestoreService** — Cloud Firestore: typed CRUD, collection queries, batch writes, transactions.
+- **MessagingService** — Firebase Cloud Messaging: send to device tokens, topics, conditions; manage topic subscriptions.
+
+## Requirements
+
+- Node.js >= 20
+- NestJS >= 7.0.0
+- firebase-admin >= 13.0.0
+
+## Links
+
+- Docs: https://hebertcisco.github.io/nestjs-firebase-admin/
+- Repository: https://github.com/hebertcisco/nestjs-firebase-admin
+- npm: https://www.npmjs.com/package/nestjs-firebase-admin
+- Issues: https://github.com/hebertcisco/nestjs-firebase-admin/issues
+
+## Detailed docs
+
+- [Getting started](https://hebertcisco.github.io/nestjs-firebase-admin/#/docs/getting-started)
+- [Admin Service](https://hebertcisco.github.io/nestjs-firebase-admin/#/docs/services/admin-service)
+- [Auth Service](https://hebertcisco.github.io/nestjs-firebase-admin/#/docs/services/auth-service)
+- [Database Service](https://hebertcisco.github.io/nestjs-firebase-admin/#/docs/services/database-service)
+- [Firestore Service](https://hebertcisco.github.io/nestjs-firebase-admin/#/docs/services/firestore-service)
+- [Messaging Service](https://hebertcisco.github.io/nestjs-firebase-admin/#/docs/services/messaging-service)
+- [Testing](https://hebertcisco.github.io/nestjs-firebase-admin/#/docs/testing)
+- [Contributing](https://hebertcisco.github.io/nestjs-firebase-admin/#/docs/contributing)

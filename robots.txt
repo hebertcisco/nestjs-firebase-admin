@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hebertcisco.github.io/nestjs-firebase-admin/sitemap.xml

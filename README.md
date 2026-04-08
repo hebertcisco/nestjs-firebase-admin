@@ -90,12 +90,6 @@ Contributions, issues, and feature requests are welcome!<br />Feel free to check
 
 Give a ⭐️ if this project helped you!
 
-Or buy the author a coffee 🙌🏾
-
-<a href="https://www.buymeacoffee.com/hebertcisco">
-    <img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=hebertcisco&button_colour=FFDD00&font_colour=000000&font_family=Inter&outline_colour=000000&coffee_colour=ffffff" />
-</a>
-
 ## 📝 License
 
 This project is under the [MIT](LICENSE) license.

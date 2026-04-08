@@ -4,7 +4,22 @@
   "description": "Firebase Admin SDK for Nestjs",
   "author": "Hebert Cisco",
   "license": "MIT",
+  "homepage": "https://hebertcisco.github.io/nestjs-firebase-admin/",
   "url": "https://github.com/hebertcisco/nestjs-firebase-admin#readme",
+  "keywords": [
+    "nestjs",
+    "firebase",
+    "firebase-admin",
+    "nestjs-module",
+    "firebase-auth",
+    "firestore",
+    "realtime-database",
+    "cloud-messaging",
+    "fcm",
+    "typescript",
+    "nestjs-firebase",
+    "admin-sdk"
+  ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {

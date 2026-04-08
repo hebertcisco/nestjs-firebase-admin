@@ -1,19 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>NestJS Firebase Admin</title>
+    <title>NestJS Firebase Admin — Firebase Admin SDK module for NestJS</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+
+    <!-- SEO -->
+    <meta name="description"
+        content="NestJS Firebase Admin is a NestJS module that wraps the Firebase Admin SDK, providing injectable services for Auth, Firestore, Realtime Database, and Cloud Messaging in your NestJS applications.">
+    <meta name="keywords"
+        content="NestJS, Firebase, Admin SDK, NestJS module, Firebase Auth, Firestore, Realtime Database, Cloud Messaging, FCM, TypeScript, Node.js, serverless, backend, nestjs-firebase-admin">
+    <meta name="author" content="Hebert Cisco">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://hebertcisco.github.io/nestjs-firebase-admin/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="NestJS Firebase Admin — Firebase Admin SDK module for NestJS" />
+    <meta property="og:description"
+        content="Injectable NestJS services for Firebase Auth, Firestore, Realtime Database, and Cloud Messaging. TypeScript-first with sync and async module registration." />
+    <meta property="og:url" content="https://hebertcisco.github.io/nestjs-firebase-admin/" />
+    <meta property="og:image"
+        content="https://raw.githubusercontent.com/hebertcisco/nestjs-firebase-admin/refs/heads/main/art/logo.png" />
+    <meta property="og:site_name" content="nestjs-firebase-admin" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="NestJS Firebase Admin — Firebase Admin SDK module for NestJS" />
+    <meta name="twitter:description"
+        content="Injectable NestJS services for Firebase Auth, Firestore, Realtime Database, and Cloud Messaging." />
+    <meta name="twitter:image"
+        content="https://raw.githubusercontent.com/hebertcisco/nestjs-firebase-admin/refs/heads/main/art/logo.png" />
+
+    <!-- Theme -->
+    <meta name="theme-color" content="#1E2830">
     <link rel="icon" type="image/png"
         href="https://raw.githubusercontent.com/hebertcisco/nestjs-firebase-admin/refs/heads/main/art/logo.png" />
-    <meta name="description"
-        content="NestJS Firebase Admin is a NestJS module that provides a simple and efficient way to integrate Firebase Admin SDK into your NestJS applications.">
-    <meta name="keywords" content="NestJS, Firebase, Admin SDK, Module, Integration">
-    <meta name="author" content="Hebert Cisco">
-    <meta name="theme-color" content="#1E2830">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareSourceCode",
+        "name": "nestjs-firebase-admin",
+        "description": "NestJS module that wraps the Firebase Admin SDK, providing injectable services for Auth, Firestore, Realtime Database, and Cloud Messaging.",
+        "url": "https://hebertcisco.github.io/nestjs-firebase-admin/",
+        "codeRepository": "https://github.com/hebertcisco/nestjs-firebase-admin",
+        "programmingLanguage": "TypeScript",
+        "runtimePlatform": "Node.js",
+        "license": "https://opensource.org/licenses/MIT",
+        "author": {
+            "@type": "Person",
+            "name": "Hebert Cisco",
+            "url": "https://github.com/hebertcisco"
+        },
+        "keywords": ["NestJS", "Firebase", "Admin SDK", "Firestore", "Auth", "Cloud Messaging", "TypeScript"]
+    }
+    </script>
 </head>
 
 <body>
@@ -21,13 +67,16 @@
     <script>
         window.$docsify = {
             name: 'NestJS Firebase Admin',
+            nameLink: '/',
             repo: 'hebertcisco/nestjs-firebase-admin',
+            coverpage: '_coverpage.md',
             loadSidebar: 'docs/_sidebar.md',
             auto2top: true,
             subMaxLevel: 3,
             maxLevel: 3,
             themeColor: '#1E2830',
             noCompileLinks: ['benchmarks/.*'],
+            externalLinkTarget: '_blank',
             search: {
                 placeholder: 'Search documentation...',
                 maxAge: 86400000,
