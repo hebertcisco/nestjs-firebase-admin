@@ -86,6 +86,12 @@ describe('AuthService', () => {
     expect(service).toBeDefined();
   });
 
+  it('should return the auth instance', () => {
+    const auth = service.auth;
+    expect(auth).toBeDefined();
+    expect(auth.createUser).toBeDefined();
+  });
+
   describe('createUser', () => {
     it('should create a new user', async () => {
       mockAuth.createUser.mockResolvedValueOnce(mockUser as UserRecord);
