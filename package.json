@@ -43,17 +43,17 @@
     "version": "npm run format && git add -A lib",
     "postversion": "git push && git push --tags"
   },
-  "dependencies": {
-    "@nestjs/common": "^7.0.0 || ^8.0.0 || ^9.2.1 || ^10.2.1 || ^11.0.0",
-    "@nestjs/core": "^11.1.18",
-    "firebase-admin": "^13.7.0"
-  },
   "engines": {
     "node": ">=20",
     "npm": ">=10"
   },
+  "dependencies": {
+    "@nestjs/common": "^7.0.0 || ^8.0.0 || ^9.2.1 || ^10.2.1 || ^11.0.0",
+    "@nestjs/core": "^7.0.0 || ^8.0.0 || ^9.2.1 || ^10.2.1 || ^11.0.0",
+    "firebase-admin": "^13.7.0"
+  },
   "devDependencies": {
-    "@nestjs/testing": "^11.1.18",
+    "@nestjs/testing": "^7.0.0 || ^8.0.0 || ^9.2.1 || ^10.2.1 || ^11.0.0",
     "@types/jest": "29.5.14",
     "@types/node": "20.17.9",
     "@types/supertest": "^2.0.16",
