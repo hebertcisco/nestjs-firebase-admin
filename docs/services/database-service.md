@@ -63,3 +63,5 @@ export class UsersService {
 | `update<T>(path, data)` | Updates specific fields at a path | [Update Data](https://firebase.google.com/docs/database/admin/save-data#section-update) |
 | `remove(path)` | Removes data from a specific path | [Delete Data](https://firebase.google.com/docs/database/admin/save-data#section-delete) |
 | `push<T>(path, data)` | Adds data to a list | [Push Data](https://firebase.google.com/docs/database/admin/save-data#section-push) |
+
+`get<T>()` returns the value at the path and may return `null` when the path does not exist. For queries, listeners, or other advanced operations, use the `DatabaseReference` returned by `ref(path)`.
