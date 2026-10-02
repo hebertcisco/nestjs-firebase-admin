@@ -1,3 +1,22 @@
+jest.mock('firebase-admin', () => ({
+  __esModule: true,
+  default: {
+    initializeApp: jest.fn().mockReturnValue({ name: '[DEFAULT]', options: {} }),
+  },
+}));
+
+jest.mock('firebase-admin/app', () => ({
+  cert: jest.fn().mockReturnValue('mocked-credential'),
+  applicationDefault: jest.fn(),
+  deleteApp: jest.fn(),
+  getApp: jest.fn(),
+  getApps: jest.fn(),
+}));
+
+jest.mock('firebase-admin/auth', () => ({
+  getAuth: jest.fn().mockReturnValue({}),
+}));
+
 import * as rootExports from '../../../index';
 import * as interfaceExports from '../interfaces/index';
 import * as typeExports from '../types/index';

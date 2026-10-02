@@ -18,13 +18,19 @@ jest.mock('firebase-admin', () => ({
     initializeApp: jest
       .fn()
       .mockReturnValue({ name: '[DEFAULT]', options: {} }),
-    credential: {
-      cert: jest.fn().mockReturnValue('mocked-credential'),
-    },
   },
 }));
 
+jest.mock('firebase-admin/app', () => ({
+  cert: jest.fn().mockReturnValue('mocked-credential'),
+}));
+
+jest.mock('firebase-admin/auth', () => ({
+  getAuth: jest.fn().mockReturnValue({}),
+}));
+
 const Admin = jest.requireMock('firebase-admin').default;
+const firebaseAdminApp = jest.requireMock('firebase-admin/app');
 
 describe('AdminModule', () => {
   const mockOptions = {
@@ -49,7 +55,7 @@ describe('AdminModule', () => {
         ...mockOptions,
         credential: 'mocked-credential',
       });
-      expect(Admin.credential.cert).toHaveBeenCalledWith(
+      expect(firebaseAdminApp.cert).toHaveBeenCalledWith(
         mockOptions.credential,
       );
 
@@ -136,7 +142,7 @@ describe('AdminModule', () => {
       // Call the factory to verify it calls Admin.initializeApp
       await appProvider.useFactory();
       expect(Admin.initializeApp).toHaveBeenCalled();
-      expect(Admin.credential.cert).toHaveBeenCalledWith(
+      expect(firebaseAdminApp.cert).toHaveBeenCalledWith(
         mockOptions.credential,
       );
     });

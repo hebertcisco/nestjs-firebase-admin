@@ -20,9 +20,7 @@ jest.mock('firebase-admin/app', () => {
 jest.mock('firebase-admin', () => {
   return {
     initializeApp: jest.fn().mockReturnValue({ name: 'app-name', options: {} }),
-    credential: {
-      cert: jest.fn().mockReturnValue('mocked-credential'),
-    },
+    cert: jest.fn().mockReturnValue('mocked-credential'),
   };
 });
 
@@ -56,7 +54,7 @@ describe('AdminService', () => {
 
     const mockApp = { name: 'app-name', options: {} };
     (firebaseAdmin.initializeApp as jest.Mock).mockReturnValue(mockApp);
-    (firebaseAdmin.credential.cert as jest.Mock).mockReturnValue(
+    (firebaseAdmin.cert as jest.Mock).mockReturnValue(
       'mocked-credential',
     );
 
@@ -167,7 +165,7 @@ describe('AdminService', () => {
       const adminModule = service.admin();
       expect(adminModule).toBeDefined();
       expect(adminModule.initializeApp).toBe(firebaseAdmin.initializeApp);
-      expect(adminModule.credential.cert).toBe(firebaseAdmin.credential.cert);
+      expect(adminModule.cert).toBe(firebaseAdmin.cert);
     });
   });
 

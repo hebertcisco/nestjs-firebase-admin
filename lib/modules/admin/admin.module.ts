@@ -1,6 +1,7 @@
 import { DynamicModule, Module, Provider, Type } from '@nestjs/common';
 import { randomStringGenerator } from '@nestjs/common/utils/random-string-generator.util';
 import Admin from 'firebase-admin';
+import { cert } from 'firebase-admin/app';
 
 import {
   ADMIN_MODULE_ID,
@@ -46,7 +47,7 @@ export class AdminModule {
   static register(options: AdminModuleOptions): DynamicModule {
     const firebaseApp = Admin.initializeApp({
       ...options,
-      credential: Admin.credential.cert(options.credential),
+      credential: cert(options.credential),
     });
 
     return {
@@ -123,7 +124,7 @@ export class AdminModule {
           const config = await factory(...args);
           return Admin.initializeApp({
             ...config,
-            credential: Admin.credential.cert(config.credential),
+            credential: cert(config.credential),
           });
         },
         inject: options.inject || [],
@@ -147,7 +148,7 @@ export class AdminModule {
           const config = await optionsFactory.createAdminOptions();
           return Admin.initializeApp({
             ...config,
-            credential: Admin.credential.cert(config.credential),
+            credential: cert(config.credential),
           });
         },
         inject: [options.useExisting],
@@ -175,7 +176,7 @@ export class AdminModule {
           const config = await optionsFactory.createAdminOptions();
           return Admin.initializeApp({
             ...config,
-            credential: Admin.credential.cert(config.credential),
+            credential: cert(config.credential),
           });
         },
         inject: [options.useClass],
