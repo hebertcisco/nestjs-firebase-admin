@@ -1,37 +1,42 @@
 # Getting Started
 
+This guide shows how to install the module, configure a Firebase Admin app, and inject one of its services into a NestJS provider.
+
 ## Requirements
 
-- **Node.js**: >= 20
-- **NPM**: >= 10
-- **NestJS**: >= 7.0.0
-- **Firebase Admin**: >= 14.0.0
+- **Node.js**: `>= 20`
+- **npm**: `>= 10`
+- **NestJS**: `>= 7`
+- **firebase-admin**: `>= 14`
 
 ## Installation
 
-Install the package using `yarn`, `npm`, or `pnpm`:
+```bash
+npm install nestjs-firebase-admin
+```
+
+Yarn and pnpm are also supported:
 
 ```bash
-# yarn
 yarn add nestjs-firebase-admin
+pnpm add nestjs-firebase-admin
 ```
 
-```bash
-# npm
-npm i nestjs-firebase-admin --save
-```
+## Prepare credentials
 
-```bash
-# pnpm
-pnpm add nestjs-firebase-admin --save
-```
+Create a Firebase service account and provide its `projectId`, `clientEmail`, and `privateKey` through a secret manager or environment variables. Do not commit a service-account JSON file or private key.
 
-## Basic Usage
-
-Here is an example of how to configure the `AdminModule` in NestJS:
+When a private key is stored in an environment variable, convert escaped newlines before passing it to the SDK:
 
 ```ts
-// common.module.ts
+const privateKey = process.env.FIREBASE_PRIVATE_KEY!.replace(/\\n/g, '\n');
+```
+
+## Register the module
+
+Register `AdminModule` once in the module that owns your Firebase providers, commonly `AppModule`:
+
+```ts
 import { Module } from '@nestjs/common';
 import { AdminModule } from 'nestjs-firebase-admin';
 
@@ -39,35 +44,42 @@ import { AdminModule } from 'nestjs-firebase-admin';
   imports: [
     AdminModule.register({
       credential: {
-        projectId: 'my-project-id',
-        clientEmail: 'my-client-email',
-        privateKey: 'my-private-key',
+        projectId: process.env.FIREBASE_PROJECT_ID!,
+        clientEmail: process.env.FIREBASE_CLIENT_EMAIL!,
+        privateKey: process.env.FIREBASE_PRIVATE_KEY!.replace(/\\n/g, '\n'),
       },
-      databaseURL: 'https://my-project-id.firebaseio.com',
+      // Include this when using Realtime Database.
+      databaseURL: process.env.FIREBASE_DATABASE_URL,
     }),
   ],
 })
-export class CommonModule {}
+export class AppModule {}
 ```
 
-### Asynchronous Registration
+The module initializes the Firebase app during registration. Importing `AdminModule` exports `AdminService`, `AuthService`, `FirestoreService`, `DatabaseService`, and `MessagingService` for injection.
 
-If you need asynchronous configuration, use the `registerAsync` method:
+## Async configuration
+
+Use `registerAsync()` with `ConfigService` or another provider:
 
 ```ts
 import { Module } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AdminModule } from 'nestjs-firebase-admin';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     AdminModule.registerAsync({
+      imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: async (config: ConfigService) => ({
+      useFactory: (config: ConfigService) => ({
         credential: {
-          projectId: config.get('FIREBASE_PROJECT_ID'),
-          clientEmail: config.get('FIREBASE_CLIENT_EMAIL'),
-          privateKey: config.get('FIREBASE_PRIVATE_KEY'),
+          projectId: config.getOrThrow('FIREBASE_PROJECT_ID'),
+          clientEmail: config.getOrThrow('FIREBASE_CLIENT_EMAIL'),
+          privateKey: config
+            .getOrThrow<string>('FIREBASE_PRIVATE_KEY')
+            .replace(/\\n/g, '\n'),
         },
         databaseURL: config.get('FIREBASE_DATABASE_URL'),
       }),
@@ -77,18 +89,37 @@ import { AdminModule } from 'nestjs-firebase-admin';
 export class AppModule {}
 ```
 
-You can also use `useClass` or `useExisting` for more advanced scenarios:
+For class-based configuration, implement `createAdminOptions()` and pass the class with `useClass` or `useExisting`:
 
 ```ts
 AdminModule.registerAsync({
   useClass: FirebaseConfigService,
-})
+});
 ```
 
-## Next Steps
+## Inject a service
 
-- Learn about the [Admin Service](services/admin-service.md)
-- Manage users with the [Auth Service](services/auth-service.md)
-- Explore the [Database Service](services/database-service.md)
-- Check out the [Firestore Service](services/firestore-service.md)
-- Discover the [Messaging Service](services/messaging-service.md)
+```ts
+import { Injectable } from '@nestjs/common';
+import { FirestoreService } from 'nestjs-firebase-admin';
+
+type User = { email: string };
+
+@Injectable()
+export class UsersService {
+  constructor(private readonly firestore: FirestoreService) {}
+
+  getUser(uid: string) {
+    return this.firestore.get<User>(`users/${uid}`);
+  }
+}
+```
+
+## Next steps
+
+- [Admin service](services/admin-service.md)
+- [Authentication](services/auth-service.md)
+- [Firestore](services/firestore-service.md)
+- [Realtime Database](services/database-service.md)
+- [Cloud Messaging](services/messaging-service.md)
+- [Testing](testing.md)
