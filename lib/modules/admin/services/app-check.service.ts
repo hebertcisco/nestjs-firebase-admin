@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { createRequire } from 'node:module';
 import type { AppCheck } from 'firebase-admin/app-check';
 import type {
   AppCheckToken,
@@ -15,11 +16,10 @@ export class AppCheckService {
   private readonly appCheck: AppCheck;
 
   constructor(@Inject(FIREBASE_ADMIN_APP) app: App) {
-    // App Check currently pulls an ESM-only JWT dependency. Load it only when
-    // this provider is instantiated so importing the package remains CommonJS-safe.
-    // eslint-disable-next-line no-undef, @typescript-eslint/no-require-imports
-    const { getAppCheck } =
-      require('firebase-admin/app-check') as typeof import('firebase-admin/app-check');
+    const appCheckRequire = createRequire(__filename);
+    const { getAppCheck } = appCheckRequire(
+      'firebase-admin/app-check',
+    ) as typeof import('firebase-admin/app-check');
     this.appCheck = getAppCheck(app);
   }
 
