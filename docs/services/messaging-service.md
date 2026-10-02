@@ -72,6 +72,8 @@ export class NotificationService {
 | `subscribeToTopic(tokens, topic)` | Subscribes devices to a topic | [Topic Management](https://firebase.google.com/docs/cloud-messaging/manage-topics) |
 | `unsubscribeFromTopic(tokens, topic)` | Unsubscribes devices from a topic | [Topic Management](https://firebase.google.com/docs/cloud-messaging/manage-topics) |
 
+`sendToDevices()` returns a batch response with per-token success and failure details. The order of `responses` matches the order of the supplied registration tokens, which makes it possible to identify invalid or expired tokens.
+
 ## Message Types
 
 The service supports various message types:
