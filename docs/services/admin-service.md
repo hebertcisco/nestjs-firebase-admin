@@ -5,7 +5,7 @@ The `AdminService` is the core service that manages the Firebase Admin SDK initi
 ## Features
 
 - Firebase Admin SDK initialization
-- Multiple app instances support
+- Access to the initialized app instance
 - Credential management
 - App lifecycle management
 - TypeScript type support
@@ -20,12 +20,12 @@ import { AdminService } from 'nestjs-firebase-admin';
 export class FirebaseService {
   constructor(private readonly adminService: AdminService) {}
 
-  // Get the default app instance
+  // Get the default app instance (getter; do not call it as a function)
   getApp() {
     return this.adminService.getApp;
   }
 
-  // Get all initialized apps
+  // Get all initialized apps (getter; do not call it as a function)
   getApps() {
     return this.adminService.getApps;
   }
@@ -57,7 +57,7 @@ export class FirebaseService {
 | `applicationDefault(httpAgent?)` | Gets default credentials | [Application Default](https://firebase.google.com/docs/reference/admin/node/firebase-admin.credential#applicationdefault) |
 | `admin()` | Gets the Firebase Admin SDK instance | [Admin SDK](https://firebase.google.com/docs/admin/setup) |
 | `appRef` | Gets the initialized app instance reference | [Initialize App](https://firebase.google.com/docs/reference/admin/node/firebase-admin.app#initializeapp) |
-| `initializeApp()` | Returns the initialized app instance | [Initialize App](https://firebase.google.com/docs/reference/admin/node/firebase-admin.app#initializeapp) |
+| `initializeApp()` | Returns the app initialized by `AdminModule` | [Initialize App](https://firebase.google.com/docs/reference/admin/node/firebase-admin.app#initializeapp) |
 | `initializeAppObservable()` | Creates an Observable that emits the app instance | [Initialize App](https://firebase.google.com/docs/reference/admin/node/firebase-admin.app#initializeapp) |
 
 ## Configuration
@@ -96,7 +96,7 @@ AdminModule.registerAsync({
 
 The service manages the lifecycle of Firebase app instances:
 
-1. **Initialization**: Apps are initialized when the module is registered
+1. **Initialization**: The app is initialized when the module is registered
 2. **Access**: Apps can be accessed through `getApp` or `getApps`
 3. **Cleanup**: Apps can be deleted using `deleteApp`
-4. **Multiple Instances**: Multiple app instances can be managed simultaneously
+4. **Access**: `appRef` and `initializeApp()` return the app instance used by the module
