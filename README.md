@@ -11,9 +11,6 @@
 <p align="center">
   <a href="https://www.npmjs.com/package/nestjs-firebase-admin"><img src="https://img.shields.io/npm/v/nestjs-firebase-admin.svg" alt="npm version"></a>
   <a href="https://www.npmjs.com/package/nestjs-firebase-admin"><img src="https://img.shields.io/npm/dm/nestjs-firebase-admin.svg" alt="npm downloads"></a>
-  <a href="https://codecov.io/gh/hebertcisco/nestjs-firebase-admin">
-    <img src="https://codecov.io/gh/hebertcisco/nestjs-firebase-admin/branch/main/graph/badge.svg?token=N0IW1UNNIP" alt="codecov">
-  </a>
   <a href="https://github.com/hebertcisco/nestjs-firebase-admin/actions/workflows/npm-publish.yml">
     <img src="https://github.com/hebertcisco/nestjs-firebase-admin/actions/workflows/npm-publish.yml/badge.svg" alt="Node.js build and publish package">
   </a>
@@ -30,7 +27,7 @@
 - **DatabaseService** — Realtime Database read, write, push, update, remove, and listeners
 - **MessagingService** — Send to device tokens, topics, and conditions; manage subscriptions
 - Sync (`register`) and async (`registerAsync`) module registration
-- Compatible with **NestJS 7 – 11** and **Firebase Admin 13+**
+- Compatible with **NestJS 7 – 11** and **Firebase Admin 14+**
 - TypeScript-first with full type support
 
 ## Installation
@@ -135,7 +132,7 @@ export class UsersService {
 |-----------|---------|
 | Node.js | >= 20 |
 | NestJS | >= 7.0.0 |
-| firebase-admin | >= 13.0.0 |
+| firebase-admin | >= 14.0.0 |
 
 ## Documentation
 
