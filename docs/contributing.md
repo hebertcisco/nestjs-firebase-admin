@@ -32,7 +32,7 @@ Thank you for considering contributing to the `nestjs-firebase-admin` project! Y
 6. **Commit Your Changes**
    - Commit your changes with a descriptive commit message:
      ```bash
-     git commit -m "feat: add new feature"
+     git commit -m "Describe your change"
      ```
 
 7. **Push Your Branch**
@@ -47,7 +47,7 @@ Thank you for considering contributing to the `nestjs-firebase-admin` project! Y
 
 ## Guidelines
 
-- Follow the [Conventional Commits](https://www.conventionalcommits.org/) specification for commit messages.
+- Use clear and descriptive commit messages.
 - Write clear and concise code with proper comments.
 - Ensure all tests pass before submitting your pull request.
 - Update documentation if your changes affect usage or functionality.
