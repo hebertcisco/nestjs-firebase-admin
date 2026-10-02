@@ -15,6 +15,9 @@ import { DatabaseService } from './services/database.service';
 import { MessagingService } from './services/messaging.service';
 import { FirestoreService } from './services/firestore.service';
 import { AuthService } from './services/auth.service';
+import { AppCheckService } from './services/app-check.service';
+import { StorageService } from './services/storage.service';
+import { RemoteConfigService } from './services/remote-config.service';
 
 import type {
   AdminModuleAsyncOptions,
@@ -30,6 +33,9 @@ import type { AdminModuleOptions } from './types';
     MessagingService,
     FirestoreService,
     AuthService,
+    AppCheckService,
+    StorageService,
+    RemoteConfigService,
     {
       provide: ADMIN_MODULE_ID,
       useValue: randomStringGenerator(),
@@ -41,6 +47,9 @@ import type { AdminModuleOptions } from './types';
     MessagingService,
     FirestoreService,
     AuthService,
+    AppCheckService,
+    StorageService,
+    RemoteConfigService,
   ],
 })
 export class AdminModule {
@@ -62,6 +71,9 @@ export class AdminModule {
         MessagingService,
         FirestoreService,
         AuthService,
+        AppCheckService,
+        StorageService,
+        RemoteConfigService,
         {
           provide: FIREBASE_ADMIN_INSTANCE_TOKEN,
           useValue: options,
@@ -81,6 +93,9 @@ export class AdminModule {
         MessagingService,
         FirestoreService,
         AuthService,
+        AppCheckService,
+        StorageService,
+        RemoteConfigService,
         FIREBASE_ADMIN_INSTANCE_TOKEN,
         FIREBASE_ADMIN_APP,
       ],
@@ -100,6 +115,9 @@ export class AdminModule {
       MessagingService,
       FirestoreService,
       AuthService,
+      AppCheckService,
+      StorageService,
+      RemoteConfigService,
       {
         provide: ADMIN_MODULE_ID,
         useValue: randomStringGenerator(),
@@ -193,6 +211,9 @@ export class AdminModule {
         MessagingService,
         FirestoreService,
         AuthService,
+        AppCheckService,
+        StorageService,
+        RemoteConfigService,
         FIREBASE_ADMIN_INSTANCE_TOKEN,
         FIREBASE_ADMIN_APP,
       ],

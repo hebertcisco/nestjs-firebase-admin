@@ -23,6 +23,9 @@
 - `FirestoreService` — typed document CRUD, collection references, and queries
 - `DatabaseService` — Realtime Database reads, writes, updates, deletes, and pushes
 - `MessagingService` — send single, multicast, and topic messages and manage subscriptions
+- `StorageService` — access buckets, files, uploads, and download URLs
+- `AppCheckService` — create and verify App Check tokens
+- `RemoteConfigService` — read, publish, roll back, and list Remote Config templates
 - `register()` and `registerAsync()` — synchronous or provider-based configuration
 
 ## Requirements

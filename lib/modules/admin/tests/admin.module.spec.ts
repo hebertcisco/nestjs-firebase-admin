@@ -10,6 +10,9 @@ import { DatabaseService } from '../services/database.service';
 import { MessagingService } from '../services/messaging.service';
 import { FirestoreService } from '../services/firestore.service';
 import { AuthService } from '../services/auth.service';
+import { AppCheckService } from '../services/app-check.service';
+import { StorageService } from '../services/storage.service';
+import { RemoteConfigService } from '../services/remote-config.service';
 
 // Mock firebase-admin
 jest.mock('firebase-admin', () => ({
@@ -69,12 +72,18 @@ describe('AdminModule', () => {
       expect(providerTokens).toContain(MessagingService);
       expect(providerTokens).toContain(FirestoreService);
       expect(providerTokens).toContain(AuthService);
+      expect(providerTokens).toContain(AppCheckService);
+      expect(providerTokens).toContain(StorageService);
+      expect(providerTokens).toContain(RemoteConfigService);
 
       expect(result.exports).toContain(AdminService);
       expect(result.exports).toContain(DatabaseService);
       expect(result.exports).toContain(MessagingService);
       expect(result.exports).toContain(FirestoreService);
       expect(result.exports).toContain(AuthService);
+      expect(result.exports).toContain(AppCheckService);
+      expect(result.exports).toContain(StorageService);
+      expect(result.exports).toContain(RemoteConfigService);
       expect(result.exports).toContain(FIREBASE_ADMIN_INSTANCE_TOKEN);
       expect(result.exports).toContain(FIREBASE_ADMIN_APP);
     });

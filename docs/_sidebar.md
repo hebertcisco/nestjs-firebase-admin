@@ -6,5 +6,8 @@
   * [Database Service](docs/services/database-service.md)
   * [Firestore Service](docs/services/firestore-service.md)
   * [Messaging Service](docs/services/messaging-service.md)
+  * [Storage](docs/services/storage-service.md)
+  * [App Check](docs/services/app-check-service.md)
+  * [Remote Config](docs/services/remote-config-service.md)
 * [Testing](docs/testing.md)
 * [Contributing](docs/contributing.md)

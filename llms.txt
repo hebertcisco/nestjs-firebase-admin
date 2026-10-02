@@ -42,6 +42,9 @@ After importing `AdminModule`, inject any of these services:
 - **DatabaseService** — Firebase Realtime Database: read, write, push, update, remove, and listen to refs.
 - **FirestoreService** — Cloud Firestore: typed CRUD, collection queries, batch writes, transactions.
 - **MessagingService** — Firebase Cloud Messaging: send to device tokens, topics, conditions; manage topic subscriptions.
+- **StorageService** — Firebase Cloud Storage: access buckets and files, upload local files, and create download URLs.
+- **AppCheckService** — create and verify Firebase App Check tokens.
+- **RemoteConfigService** — read, publish, roll back, and list Remote Config templates.
 
 ## Requirements
 
