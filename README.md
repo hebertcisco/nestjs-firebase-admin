@@ -14,9 +14,6 @@
   <a href="https://github.com/hebertcisco/nestjs-firebase-admin/actions/workflows/npm-publish.yml">
     <img src="https://github.com/hebertcisco/nestjs-firebase-admin/actions/workflows/npm-publish.yml/badge.svg" alt="Node.js build and publish package">
   </a>
-  <a href="https://github.com/hebertcisco/nestjs-firebase-admin/actions/workflows/coverage.yml">
-    <img src="https://github.com/hebertcisco/nestjs-firebase-admin/actions/workflows/coverage.yml/badge.svg" alt="Running Code Coverage">
-  </a>
 </p>
 
 ## Features
