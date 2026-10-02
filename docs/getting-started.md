@@ -5,6 +5,7 @@
 - **Node.js**: >= 20
 - **NPM**: >= 10
 - **NestJS**: >= 7.0.0
+- **Firebase Admin**: >= 14.0.0
 
 ## Installation
 
