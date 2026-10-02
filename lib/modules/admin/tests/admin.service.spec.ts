@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 
 const FIREBASE_ADMIN_INSTANCE_TOKEN = 'FIREBASE_ADMIN_INSTANCE_TOKEN';
 
-// Mock firebase-admin/app
 jest.mock('firebase-admin/app', () => {
   return {
     getApp: jest.fn().mockReturnValue({ name: 'app-name', options: {} }),
@@ -16,7 +15,6 @@ jest.mock('firebase-admin/app', () => {
   };
 });
 
-// Mock firebase-admin
 jest.mock('firebase-admin', () => {
   return {
     initializeApp: jest.fn().mockReturnValue({ name: 'app-name', options: {} }),
@@ -24,7 +22,6 @@ jest.mock('firebase-admin', () => {
   };
 });
 
-// Import mocks after jest.mock() calls
 const firebaseAdmin = jest.requireMock('firebase-admin');
 const firebaseAdminApp = jest.requireMock('firebase-admin/app');
 
@@ -216,17 +213,12 @@ describe('AdminService', () => {
       let teardownResult: any;
       const observable = service.initializeAppObservable();
 
-      // Subscribe and capture the teardown by subscribing to a new observable
-      // that wraps the teardown logic
       const sub = observable.subscribe(() => {});
-      // The teardown runs on unsubscribe — appRef has name 'app-name'
       sub.unsubscribe();
-      // If we get here without error, teardown executed the appRef.name branch
       expect(service.appRef.name).toBe('app-name');
     });
 
     it('should return getApp from teardown when app has no name', () => {
-      // Create service with an app that has no name
       const mockAppNoName = { name: '', options: {} };
 
       return Test.createTestingModule({

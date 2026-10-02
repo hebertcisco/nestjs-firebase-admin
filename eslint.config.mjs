@@ -16,7 +16,10 @@ export default [
         ecmaVersion: 'latest',
         sourceType: 'module',
       },
-      globals: jest.environments.globals.globals,
+      globals: {
+        ...jest.environments.globals.globals,
+        __filename: 'readonly',
+      },
     },
     plugins: {
       '@typescript-eslint': typescriptEslint,

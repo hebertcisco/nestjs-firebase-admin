@@ -4,7 +4,6 @@ import type { ServiceAccount } from 'firebase-admin/app';
 import type { AppOptions, Credential } from 'firebase-admin/app';
 import type { App } from 'firebase-admin/app';
 
-// Extends the App interface to include the delete method
 declare module 'firebase-admin/app' {
   interface App {
     delete(): Promise<void>;
@@ -56,7 +55,6 @@ export class AdminServiceMock {
       }),
     };
 
-    // Initialize a default app
     this.mockAdmin.initializeApp(this.options);
   }
 
@@ -142,7 +140,6 @@ export class AdminServiceMock {
     this.mockAdmin.credential.cert.mockClear();
     this.mockAdmin.app.mockClear();
 
-    // Reset a default app
     this.mockAdmin.initializeApp(this.options);
   }
 
@@ -158,7 +155,7 @@ export class AdminServiceMock {
       const app = this.getApp;
       app.delete = jest.fn().mockRejectedValueOnce(error);
     } else if (method === 'getApp') {
-      this.apps = []; // Force App Not Found Error
+      this.apps = [];
     }
   }
 }

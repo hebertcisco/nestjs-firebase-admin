@@ -114,7 +114,6 @@ export class DatabaseServiceMock {
   resetMocks() {
     this.mockStorage = {};
 
-    // Resetar as funções mock para seus estados iniciais
     this.mockRef.get = jest.fn().mockImplementation(() => {
       return Promise.resolve({
         val: () => 'mock-data',

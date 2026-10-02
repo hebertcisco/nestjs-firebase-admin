@@ -8,7 +8,6 @@ import {
   ListUsersResult,
 } from 'firebase-admin/auth';
 
-// Mock firebase-admin/auth
 jest.mock('firebase-admin/auth', () => ({
   getAuth: jest.fn().mockReturnValue({
     createUser: jest.fn(),

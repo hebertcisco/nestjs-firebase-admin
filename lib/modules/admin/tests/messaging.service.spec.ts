@@ -16,7 +16,6 @@ interface AppWithMessaging extends App {
   messaging(): Messaging;
 }
 
-// Mock firebase-admin/messaging
 jest.mock('firebase-admin/messaging', () => {
   return {
     Messaging: jest.fn().mockImplementation(() => ({

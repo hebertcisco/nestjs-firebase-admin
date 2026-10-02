@@ -14,7 +14,6 @@ import { AppCheckService } from '../services/app-check.service';
 import { StorageService } from '../services/storage.service';
 import { RemoteConfigService } from '../services/remote-config.service';
 
-// Mock firebase-admin
 jest.mock('firebase-admin', () => ({
   __esModule: true,
   default: {
@@ -148,7 +147,6 @@ describe('AdminModule', () => {
       expect(appProvider).toBeDefined();
       expect(appProvider.useFactory).toBeDefined();
 
-      // Call the factory to verify it calls Admin.initializeApp
       await appProvider.useFactory();
       expect(Admin.initializeApp).toHaveBeenCalled();
       expect(firebaseAdminApp.cert).toHaveBeenCalledWith(
