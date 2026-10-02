@@ -1,7 +1,9 @@
 jest.mock('firebase-admin', () => ({
   __esModule: true,
   default: {
-    initializeApp: jest.fn().mockReturnValue({ name: '[DEFAULT]', options: {} }),
+    initializeApp: jest
+      .fn()
+      .mockReturnValue({ name: '[DEFAULT]', options: {} }),
   },
 }));
 

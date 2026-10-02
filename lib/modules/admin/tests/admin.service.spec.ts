@@ -54,9 +54,7 @@ describe('AdminService', () => {
 
     const mockApp = { name: 'app-name', options: {} };
     (firebaseAdmin.initializeApp as jest.Mock).mockReturnValue(mockApp);
-    (firebaseAdmin.cert as jest.Mock).mockReturnValue(
-      'mocked-credential',
-    );
+    (firebaseAdmin.cert as jest.Mock).mockReturnValue('mocked-credential');
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
