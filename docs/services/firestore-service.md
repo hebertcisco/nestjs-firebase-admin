@@ -48,8 +48,9 @@ export class UsersService {
 
   // Query documents
   async getActiveUsers() {
-    return this.firestoreService.query<User>('users', 
-      (q) => q.where('status', '==', 'active')
+    return this.firestoreService.query<User>(
+      'users',
+      q => q.where('status', '==', 'active'),
     );
   }
 }
@@ -67,3 +68,5 @@ export class UsersService {
 | `delete(path)` | Deletes a document | [Delete Data](https://firebase.google.com/docs/firestore/manage-data/delete-data) |
 | `add<T>(path, data)` | Adds a document with auto-generated ID | [Add Data](https://firebase.google.com/docs/firestore/manage-data/add-data) |
 | `query<T>(path, ...constraints)` | Queries a collection | [Query Data](https://firebase.google.com/docs/firestore/query-data/queries) |
+
+`get()` returns `null` when the document does not exist. `query()` returns an array of document data; document IDs are not included in the returned objects. Use `collection()` or `doc()` when you need document references or IDs.
