@@ -12,7 +12,7 @@ Ensure you have the following installed:
 Install the dependencies:
 
 ```bash
-npm install
+npm ci
 ```
 
 ## Running Tests
@@ -65,3 +65,5 @@ Mock implementations are provided for Firebase services to ensure tests do not m
 ## Continuous Integration
 
 Tests are automatically run in CI pipelines using GitHub Actions. Refer to the respective configuration files for more details.
+
+The coverage workflow runs against Node.js 20, 22, and 24. GitHub Pages deployment and npm publishing are handled by separate workflows in `.github/workflows/`.
